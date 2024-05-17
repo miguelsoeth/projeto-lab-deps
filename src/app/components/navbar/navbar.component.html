@@ -1,0 +1,65 @@
+<mat-toolbar color="primary" class="toolbar">
+    @if(isLoggedIn()) {
+        <div class="botoes">
+            <button mat-button routerLink="/clientes" *ngIf="isAdmin()">
+                <span>Clientes</span>
+            </button>
+            <button mat-button routerLink="/historico" *ngIf="isAdmin()">
+                <span>Histórico de consulta</span>
+            </button>
+            <button mat-button *ngIf="isUser()" [matMenuTriggerFor]="menuConsulta">                
+                <span>Consulta</span>
+                <mat-icon matSuffix>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #menuConsulta="matMenu">
+                <button routerLink="/consulta/online" mat-menu-item>
+                    <span>Online</span>
+                </button>
+                <button routerLink="/consulta/lote" mat-menu-item>
+                    <span>Lote</span>
+                </button>      
+                <button routerLink="/historico" mat-menu-item *ngIf="!isAdmin()">
+                    <span>Histórico de consulta</span>
+                </button>
+            </mat-menu>
+        </div>
+        
+        <div class="container" *ngIf="authService.getUserDetail() as userDetail">
+            <a class="itens" [matMenuTriggerFor]="menuConta">
+                <div class="user">
+                    <span class="name">
+                        {{userDetail?.fullName}}
+                    </span>
+                    <span class="role">
+                        {{userDetail?.roles}}
+                    </span>
+                </div>
+            </a>
+            <mat-menu #menuConta="matMenu">
+                <button routerLink="/conta" mat-menu-item>
+                    <mat-icon>account_circle</mat-icon>
+                    <span>Perfil</span>
+                </button>
+                <button mat-menu-item (click)="logout()">
+                    <mat-icon>logout</mat-icon>
+                    <span>Deslogar</span>
+                </button>                
+            </mat-menu>
+        </div>
+        
+    }
+    @else{
+        <div class="itens">
+            <a mat-button routerLink="/login" class="route">
+                Entrar
+            </a>
+        </div>
+    }
+</mat-toolbar>
+
+<!-- BOTAR PARA LEVAR PARA TELA DE CADASTRO
+    
+    <button mat-button routerLink="/register" *ngIf="isAdmin()">
+    <mat-icon mat-prefix>person_add</mat-icon>
+    <span>Cadastrar usuário</span>
+</button> -->

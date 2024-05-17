@@ -1,0 +1,14 @@
+<div class="body">
+    @if(authService.getUserDetail()) {
+        <mat-card class="card">
+            <mat-card-title id="title">Olá {{authService.getUserDetail()?.fullName}}!</mat-card-title>
+            <mat-card-subtitle>Bem vindo ao site de consultas da deps.</mat-card-subtitle>
+        </mat-card>
+    }
+    @else {        
+        <mat-card class="card">
+            <mat-card-title id="title">Bem vindo!</mat-card-title>
+            <mat-card-subtitle>Você não está logado!</mat-card-subtitle>
+        </mat-card>
+    }       
+</div>

@@ -1,0 +1,36 @@
+<mat-card>
+  <mat-card-title>Login</mat-card-title>
+  <mat-card-content>
+  <form class="form" [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="Ex. nome@email.com">
+        <mat-error *ngIf="form.controls['email'].hasError('email') && !form.controls['email'].hasError('required')">
+          Insira um email válido
+        </mat-error>
+        <mat-error *ngIf="form.controls['email'].hasError('required')">
+          O campo email é <strong>obrigatório</strong>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Senha</mat-label>
+      <input type="{{hide ? 'password' : 'text'}}" matInput formControlName="password">
+      <mat-error *ngIf="form.controls['password'].hasError('minlength') && !form.controls['password'].hasError('required')">
+        A senha deve ter no mínimo 8 caracteres
+      </mat-error>
+      <mat-error *ngIf="form.controls['password'].hasError('required')">
+        O campo senha é <strong>obrigatório</strong>
+      </mat-error>
+      <mat-icon (click)="hide = !hide" matSuffix>
+        {{ hide ? 'visibility_off' : 'visibility'}}
+      </mat-icon>
+    </mat-form-field>
+
+    <button class="login-button" type="submit" mat-button [disabled]="!form.valid">
+      Entrar
+    </button>
+
+  </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,14 @@
+<mat-card *ngIf="accountDetail | async as user">    
+    <mat-card-header>
+        <div mat-card-avatar class="profile-picture" [ngStyle]="{'background-color': getBackgroundColor(user.fullName)}">{{user.fullName[0] | titlecase}}</div>
+        <mat-card-title>{{user.fullName}}</mat-card-title>        
+        <mat-card-subtitle><strong>Funções:</strong> {{user.roles}}</mat-card-subtitle>        
+    </mat-card-header>
+    <mat-card-content>
+        <p><strong>Email:</strong> {{user.email}}</p>
+        <p><strong>Telefone:</strong> {{user.phoneNumber || '-'}}</p>
+        <p><strong>2FA Habilitado:</strong> {{user.twoFacotrEnabled? 'Sim' : 'Não'}}</p>
+        <p><strong>Tel. Confirmado:</strong> {{user.phoneNumberConfirmed? 'Sim' : 'Não'}}</p>
+        <p><strong>Falhas de Login:</strong> {{user.accessFailedCount}}</p>
+    </mat-card-content>
+</mat-card>

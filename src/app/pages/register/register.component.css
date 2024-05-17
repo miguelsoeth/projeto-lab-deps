@@ -1,0 +1,48 @@
+
+:host {
+    display: flex;
+    justify-content: center;
+}
+
+mat-card {
+    /* mat-elevation nao esta funcionando */
+    box-shadow: 0px 10px 20px -6px rgba(0, 0, 0, 0.6);
+    margin: 30px;
+}
+
+mat-card-title,
+mat-card-content {
+    display: flex;
+    justify-content: center;
+}
+
+mat-card-title {
+    padding: 20px;
+}
+
+mat-form-field {
+    margin-bottom: 15px;
+    width: 500px;
+}
+
+.errors {
+    color: red;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+.login-button {
+    float: right;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.mat-error-mismatch {
+    color: red; /* Custom error color */
+    font-size: 12px; /* Custom font size */
+    font-weight: bold; /* Custom font weight */
+}
