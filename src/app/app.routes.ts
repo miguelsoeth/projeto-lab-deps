@@ -7,6 +7,7 @@ import { authGuard } from './guards/auth.guard';
 import { ClientsComponent } from './pages/clients/clients.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { roleGuard } from './guards/role.guard';
+import { EditComponent } from './pages/edit/edit.component';
 
 export const routes: Routes = [
     {
@@ -37,6 +38,14 @@ export const routes: Routes = [
     {
         path: 'historico',
         component: HistoryComponent,
+        canActivate:[authGuard],
+        data: {
+            roles:['Admin'],
+        }
+    },
+    {
+        path: 'clientes/editar/:id',
+        component: EditComponent,
         canActivate:[roleGuard],
         data: {
             roles:['Admin'],

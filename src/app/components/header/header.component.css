@@ -7,7 +7,10 @@ mat-toolbar {
     justify-content: center;
     margin: auto;
     padding: 10px 30px;
-    border-bottom: 2px solid black;
     text-decoration: none;
     color: black;
+}
+
+#title img {
+    width: 140px;
 }

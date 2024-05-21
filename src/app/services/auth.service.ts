@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
 import { RegisterRequest } from '../interfaces/register-request';
 import { UserDetail } from '../interfaces/user-detail';
+import { EditRequest } from '../interfaces/edit-request';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,14 @@ export class AuthService {
 
   getDetail=():Observable<UserDetail> => {
     return this.http.get<UserDetail>(`${this.apiUrl}account/detail`);
+  }
+
+  getIdDetail=(id: string):Observable<UserDetail> => {
+    return this.http.get<UserDetail>(`${this.apiUrl}account/detail/${id}`);
+  }
+
+  editUser=(user: EditRequest, id: string): Observable<AuthResponse> => {
+    return this.http.put<AuthResponse>(`${this.apiUrl}account/edit/${id}`, user);
   }
 
   getUserDetail=() => {

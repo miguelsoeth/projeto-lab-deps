@@ -1,7 +1,7 @@
 <mat-card>
-    <mat-card-title>Cadastro</mat-card-title>
+    <mat-card-title>Editar cliente</mat-card-title>
     <mat-card-content>
-        <form class="form" [formGroup]="form" (ngSubmit)="register()">
+        <form class="form" [formGroup]="form" (ngSubmit)="edit()" *ngIf="form">
             @for(error of errors; track error) {
                 <div class="errors">
                     {{error.description}}
@@ -36,52 +36,32 @@
 
             <mat-form-field>
                 <mat-label>Função</mat-label>
-                <mat-select multiple formControlName="role">
-                    <mat-option>Admin</mat-option>
-                    <mat-option>User</mat-option>
+                <mat-select multiple formControlName="roles">
+                    <mat-option value="Admin">Admin</mat-option>
+                    <mat-option value="User">User</mat-option>
                 </mat-select>
-                <mat-error *ngIf="form.controls['role'].hasError('required')">
+                <mat-error *ngIf="form.controls['roles'].hasError('required')">
                     <strong>obrigatório</strong> selecionar a função!
                 </mat-error>
             </mat-form-field>
-        
+
             <mat-form-field>
                 <mat-label>Senha</mat-label>
                 <input [type]="pwdHide ? 'password' : 'text'" matInput formControlName="password">
-                <mat-error *ngIf="form.controls['password'].hasError('minlength') && !form.controls['password'].hasError('required')">
+                <mat-error *ngIf="form.controls['password'].hasError('minlength')">
                 A senha deve ter no mínimo 8 caracteres
-                </mat-error>
-                <mat-error *ngIf="form.controls['password'].hasError('required')">
-                O campo senha é <strong>obrigatório</strong>
                 </mat-error>
                 <mat-icon (click)="pwdHide = !pwdHide" matSuffix>
                     {{ pwdHide ? 'visibility_off' : 'visibility'}}
                 </mat-icon>
             </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>Confirmar Senha</mat-label>
-                <input [type]="confirmPwdHide ? 'password' : 'text'" matInput formControlName="confirmPassword">
-                
-                <mat-error *ngIf="form.controls['confirmPassword'].hasError('required')">
-                    O campo senha é <strong>obrigatório</strong>
-                </mat-error>
-                
-                <mat-error *ngIf="form.controls['confirmPassword'].hasError('minlength') && !form.controls['confirmPassword'].hasError('required')">
-                A senha deve ter no mínimo 8 caracteres
-                </mat-error>                
-                
-                <mat-icon (click)="confirmPwdHide = !confirmPwdHide" matSuffix>
-                    {{ confirmPwdHide ? 'visibility_off' : 'visibility'}}
-                </mat-icon>
-
-                <span class="mat-error-mismatch" *ngIf="form.hasError('passwordMismatch') && form.get('confirmPassword')?.dirty && form.get('confirmPassword')?.touched">
-                    As senhas não correspondem
-                </span> 
-            </mat-form-field>                    
+            <div class="toggle-disable">
+                <mat-slide-toggle formControlName="disabled">Desativar cliente?</mat-slide-toggle>
+            </div>            
             
             <button class="login-button" type="submit" mat-button [disabled]="!form.valid">
-                Cadastrar
+                Salvar
             </button>                
         </form>
     </mat-card-content>

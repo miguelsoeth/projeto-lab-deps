@@ -14,6 +14,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 @Component({
   selector: 'app-clients',
   standalone: true,
@@ -29,7 +31,8 @@ import { RouterLink } from '@angular/router';
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
-    RouterLink
+    RouterLink,
+    MatProgressSpinnerModule
   ],
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.css'
@@ -37,7 +40,7 @@ import { RouterLink } from '@angular/router';
 export class ClientsComponent implements AfterViewInit {
   authService = inject(AuthService);
 
-  displayedColumns: string[] = ['id','fullName', 'options'];
+  displayedColumns: string[] = ['document','fullName', 'options'];
   dataSource: MatTableDataSource<UserDetail> = new MatTableDataSource();
   data: UserDetail[] = [];
   isLoadingResults = true;
@@ -49,8 +52,9 @@ export class ClientsComponent implements AfterViewInit {
   
 
   ngAfterViewInit() {
-    timer(100).subscribe(() => this.loadData());
-    //this.loadData();
+    //simula tempo de fetch
+    //timer(1000).subscribe(() => this.loadData());
+    this.loadData();
   }
 
   loadData() {

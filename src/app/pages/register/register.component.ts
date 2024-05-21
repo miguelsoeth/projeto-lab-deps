@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 // Material
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -19,7 +19,7 @@ import { ValidationError } from '../../interfaces/validation-error';
   standalone: true,
   imports: [MatCardModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule, RouterLink, NgIf, MatSelectModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'] // Corrected to styleUrls
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
   router = inject(Router);
@@ -30,13 +30,14 @@ export class RegisterComponent implements OnInit {
   pwdHide = true;
   confirmPwdHide = true;
   form!: FormGroup;
-  errors!:ValidationError[];
+  errors!: ValidationError[];
 
   ngOnInit(): void {
     this.form = this.fb.group(
       {
         email: ['', [Validators.required, Validators.email]],
         fullName: ['', [Validators.required]],
+        document: ['', [Validators.required]],
         role: ['', [Validators.required]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', [Validators.required, Validators.minLength(8)]]
