@@ -28,7 +28,7 @@
 
             <mat-form-field>
                 <mat-label>Nº Documento</mat-label>
-                <input type="text" matInput formControlName="document">
+                <input type="text" matInput formControlName="document" mask="CPF_CNPJ">
                 <mat-error *ngIf="form.controls['document'].hasError('required')">
                     Nº do documento é <strong>obrigatório</strong>
                 </mat-error>

@@ -3,6 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgFor, NgForOf, NgIf } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 // Material
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -20,7 +21,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [MatCardModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule, RouterLink, NgIf, MatSelectModule, NgFor, MatProgressSpinnerModule, NgForOf, MatSlideToggleModule],
+  imports: [MatCardModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule, RouterLink, NgIf, MatSelectModule, NgFor, MatProgressSpinnerModule, NgForOf, MatSlideToggleModule, NgxMaskDirective, NgxMaskPipe],
+  providers: [provideNgxMask()],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.css'
 })

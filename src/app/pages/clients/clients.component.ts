@@ -15,6 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-clients',
@@ -32,8 +33,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatMenuModule,
     MatIconModule,
     RouterLink,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
+  providers: [provideNgxMask()],
   templateUrl: './clients.component.html',
   styleUrl: './clients.component.css'
 })

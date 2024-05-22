@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 // Material
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
@@ -17,7 +18,8 @@ import { ValidationError } from '../../interfaces/validation-error';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [MatCardModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule, RouterLink, NgIf, MatSelectModule],
+  imports: [MatCardModule, MatInputModule, MatButtonModule, MatIconModule, ReactiveFormsModule, RouterLink, NgIf, MatSelectModule, NgxMaskDirective, NgxMaskPipe],
+  providers: [provideNgxMask()],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })

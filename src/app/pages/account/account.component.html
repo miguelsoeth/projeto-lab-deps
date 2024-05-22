@@ -6,6 +6,7 @@
     </mat-card-header>
     <mat-card-content>
         <p><strong>Email:</strong> {{user.email}}</p>
+        <p><strong>Documento:</strong>{{user.document | mask: "000.000.000-00||00.000.000/0000-00"}}</p>
         <p><strong>Telefone:</strong> {{user.phoneNumber || '-'}}</p>
         <p><strong>2FA Habilitado:</strong> {{user.twoFacotrEnabled? 'Sim' : 'Não'}}</p>
         <p><strong>Tel. Confirmado:</strong> {{user.phoneNumberConfirmed? 'Sim' : 'Não'}}</p>

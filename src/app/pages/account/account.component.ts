@@ -2,11 +2,13 @@ import { Component, OnInit, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [MatCardModule, CommonModule],
+  imports: [MatCardModule, CommonModule, NgxMaskDirective, NgxMaskPipe],
+  providers: [provideNgxMask()],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css'
 })
