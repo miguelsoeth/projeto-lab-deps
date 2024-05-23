@@ -83,18 +83,6 @@ export class AuthService {
   isLoggedIn = ():boolean=> {
     const token = this.getToken();
     if(!token) return false;
-    //return !this.isTokenExpired();
-    return true;
-  }
-
-
-  private isTokenExpired() {
-    const token = this.getToken();
-    if (!token) return true;
-    const decoded = jwtDecode(token);
-    const isTokenExpired = Date.now() >= decoded['exp']! * 1000;
-    if (isTokenExpired) this.logout();
-    //return isTokenExpired;
     return true;
   }
 
