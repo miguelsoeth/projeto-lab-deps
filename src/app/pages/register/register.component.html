@@ -36,11 +36,11 @@
 
             <mat-form-field>
                 <mat-label>Função</mat-label>
-                <mat-select multiple formControlName="role">
-                    <mat-option>Admin</mat-option>
-                    <mat-option>User</mat-option>
+                <mat-select multiple formControlName="roles">
+                    <mat-option value="Admin">Admin</mat-option>
+                    <mat-option value="User">User</mat-option>
                 </mat-select>
-                <mat-error *ngIf="form.controls['role'].hasError('required')">
+                <mat-error *ngIf="form.controls['roles'].hasError('required')">
                     <strong>obrigatório</strong> selecionar a função!
                 </mat-error>
             </mat-form-field>

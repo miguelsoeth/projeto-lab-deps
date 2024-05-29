@@ -1,13 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { LoginRequest } from '../interfaces/login-request';
+import { LoginRequest } from '../interfaces/account/login-request';
 import { Observable, map } from 'rxjs';
-import { AuthResponse } from '../interfaces/auth-response';
+import { AuthResponse } from '../interfaces/account/auth-response';
 import { HttpClient } from '@angular/common/http';
 import { jwtDecode } from 'jwt-decode';
-import { RegisterRequest } from '../interfaces/register-request';
-import { UserDetail } from '../interfaces/user-detail';
-import { EditRequest } from '../interfaces/edit-request';
+import { RegisterRequest } from '../interfaces/account/register-request';
+import { UserDetail } from '../interfaces/account/user-detail';
+import { EditRequest } from '../interfaces/account/edit-request';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,7 @@ export class AuthService {
       );
   }
 
-  register(data: RegisterRequest): Observable<AuthResponse> {
+  register(data: UserDetail): Observable<AuthResponse> {
     return this.http
       .post<AuthResponse>(`${this.apiUrl}Account/register`, data);
   }
@@ -53,15 +53,15 @@ export class AuthService {
   }
 
   getDetail=():Observable<UserDetail> => {
-    return this.http.get<UserDetail>(`${this.apiUrl}account/detail`);
+    return this.http.get<UserDetail>(`${this.apiUrl}account/current-user`);
   }
 
   getIdDetail=(id: string):Observable<UserDetail> => {
-    return this.http.get<UserDetail>(`${this.apiUrl}account/detail/${id}`);
+    return this.http.get<UserDetail>(`${this.apiUrl}account/${id}`);
   }
 
-  editUser=(user: EditRequest, id: string): Observable<AuthResponse> => {
-    return this.http.put<AuthResponse>(`${this.apiUrl}account/edit/${id}`, user);
+  editUser=(user: UserDetail, id: string): Observable<AuthResponse> => {
+    return this.http.put<AuthResponse>(`${this.apiUrl}account/${id}`, user);
   }
 
   getUserDetail=() => {
@@ -112,7 +112,7 @@ export class AuthService {
     return decodedToken.role || null;
   }
 
-  getAllClients=():Observable<UserDetail[]> => this.http.get<UserDetail[]>(`${this.apiUrl}account`)
+  getAllClients=():Observable<UserDetail[]> => this.http.get<UserDetail[]>(`${this.apiUrl}account/all-users`)
 
   refreshToken=(data:{email: string, token: string, refreshToken: string}) : Observable<AuthResponse> =>
     this.http.post<AuthResponse>(`${this.apiUrl}account/refresh-token`, data);

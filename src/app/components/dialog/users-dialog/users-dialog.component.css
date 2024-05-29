@@ -1,0 +1,58 @@
+mat-dialog-content {
+    min-height: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-content {
+    height: 400px;
+    overflow: scroll;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    width: 470px;
+}
+
+.profile-name {
+    font-weight: 500;
+    color: black;
+    min-width: 200px;
+}
+
+.profile-actions {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;    
+    gap: 10px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: lightgray; 
+    border-radius: 10px;
+}
+
+.loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

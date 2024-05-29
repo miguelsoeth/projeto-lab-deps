@@ -1,3 +1,4 @@
+import { OptionsButtonComponent } from './../../components/options-button/options-button.component';
 import { Observable, of as observableOf, timer } from 'rxjs';
 import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
@@ -7,7 +8,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { UserDetail } from '../../interfaces/user-detail';
+import { UserDetail } from '../../interfaces/account/user-detail';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { catchError, map } from 'rxjs/operators';
 import { MatButtonModule } from '@angular/material/button';
@@ -35,7 +36,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     RouterLink,
     MatProgressSpinnerModule,
     NgxMaskDirective,
-    NgxMaskPipe
+    NgxMaskPipe,
+    OptionsButtonComponent
   ],
   providers: [provideNgxMask()],
   templateUrl: './clients.component.html',

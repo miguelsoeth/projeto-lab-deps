@@ -1,3 +1,4 @@
+import { UserDetail } from './../../interfaces/account/user-detail';
 import { Component, OnInit, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
@@ -13,7 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../../services/auth.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ValidationError } from '../../interfaces/validation-error';
+import { ValidationError } from '../../interfaces/account/validation-error';
 
 @Component({
   selector: 'app-register',
@@ -40,7 +41,7 @@ export class RegisterComponent implements OnInit {
         email: ['', [Validators.required, Validators.email]],
         fullName: ['', [Validators.required]],
         document: ['', [Validators.required]],
-        role: ['', [Validators.required]],
+        roles: ['', [Validators.required]],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmPassword: ['', [Validators.required, Validators.minLength(8)]]
       },
@@ -51,7 +52,16 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void {
-    this.authService.register(this.form.value).subscribe({
+    const mappedDetail: UserDetail = {
+      email: this.form.value.email,
+      name: this.form.value.fullName,
+      document: this.form.value.document,
+      password: this.form.value.password,
+      roles: this.form.value.roles,
+      isActive: true
+    }
+    console.log("Register func: ", mappedDetail);
+    this.authService.register(mappedDetail).subscribe({
       next: (response) => {
         console.log(response);
         this.snackBar.showMessage(response.message);

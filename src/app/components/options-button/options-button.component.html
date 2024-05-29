@@ -1,0 +1,15 @@
+<button mat-raised-button [matMenuTriggerFor]="menuOpcoes">                
+    <span>Opções</span>
+    <mat-icon matSuffix>keyboard_arrow_right</mat-icon>
+</button>
+<mat-menu #menuOpcoes="matMenu">
+    <button mat-menu-item (click)="openUsersDialog()">
+        Usuarios
+    </button>
+    <button mat-menu-item>
+        <span>Crédito</span>
+    </button>
+    <button mat-menu-item> 
+        <span>Produtos</span>
+    </button>
+</mat-menu>

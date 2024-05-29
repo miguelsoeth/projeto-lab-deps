@@ -1,0 +1,39 @@
+<mat-dialog-content>
+    <h1 mat-dialog-title>
+        Usuários de {{userDetail.name}}
+    </h1>
+    @if (isLoadingResults) {
+        <div class="loading-shade">
+            <mat-spinner></mat-spinner>
+        </div>
+    }
+    <div class="profile-content">
+        @if (profilesDetail.length === 0) {
+            <div class="profile" style="flex-direction: column;">
+                <div class="profile-name">
+                    Esse cliente não possui usuários!
+                </div>
+                <span>Crie um usuário clicando em <span style="border: 1px solid gray; border-radius: 5px; padding: 0px 8px;">+ Criar usuário</span> abaixo</span>
+            </div>
+        }
+        @else {
+            @for (profile of profilesDetail; track profile) {
+                <div class="profile">
+                    <div class="profile-name">
+                        {{profile.profileName}}
+                    </div>
+                    <div class="profile-actions">
+                        <button mat-raised-button color="primary" (click)="editProfile(profile!)">Editar<mat-icon matSuffix>edit</mat-icon></button>
+                        <button mat-raised-button color="warn" (click)="deleteProfile(profile.id!)">Deletar<mat-icon matSuffix>delete</mat-icon></button>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div>
+        <button mat-raised-button color="primary" (click)="createProfile()">Criar usuário<mat-icon matSuffix>add</mat-icon></button>
+    </div>    
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Okay</button>
+</mat-dialog-actions>

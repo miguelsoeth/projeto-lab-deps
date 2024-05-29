@@ -1,4 +1,4 @@
-import { EditRequest } from './../../interfaces/edit-request';
+import { EditRequest } from '../../interfaces/account/edit-request';
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgFor, NgForOf, NgIf } from '@angular/common';
@@ -12,8 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { AuthService } from '../../services/auth.service';
 import { SnackbarService } from '../../services/snackbar.service';
-import { UserDetail } from '../../interfaces/user-detail';
-import { ValidationError } from '../../interfaces/validation-error';
+import { UserDetail } from '../../interfaces/account/user-detail';
+import { ValidationError } from '../../interfaces/account/validation-error';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -64,18 +64,25 @@ export class EditComponent implements OnInit {
     this.form = this.fb.group(
       {
         email: [this.user?.email, [Validators.required, Validators.email]],
-        fullName: [this.user?.fullName, [Validators.required]],
+        fullName: [this.user?.name, [Validators.required]],
         document: [this.user?.document, [Validators.required]],
         roles: [this.user?.roles, [Validators.required]], 
         password: ['', [Validators.minLength(8)]],
-        disabled: [this.user?.lockedOut, [Validators.required]]
+        disabled: [this.user?.isActive, [Validators.required]]
       }
     );
   }
 
   edit(): void {
-    console.log('EDITANDO: ', this.form.value);
-    this.authService.editUser(this.form.value, this.id!).subscribe({
+    const mappedDetail: UserDetail = {
+      email: this.form.value.email,
+      name: this.form.value.fullName,
+      document: this.form.value.document,
+      password: this.form.value.password,
+      roles: [this.form.value.roles],
+      isActive: this.form.value.disabled
+    }
+    this.authService.editUser(mappedDetail, this.id!).subscribe({
       next: (response) => {
         this.snackBar.showMessage(response.message);
         this.router.navigate(['/clientes']);

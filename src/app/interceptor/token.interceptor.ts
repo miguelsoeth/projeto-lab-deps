@@ -8,6 +8,10 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
+  if (req.url.includes('localhost:3000')) {
+    return next(req);
+  }
+
   if (authService.getToken()) {
     const cloned = req.clone({
       headers: req.headers.set('Authorization', 'Bearer ' + authService.getToken())      
@@ -45,5 +49,6 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
       })
     )
   }
+
   return next(req);
 };
