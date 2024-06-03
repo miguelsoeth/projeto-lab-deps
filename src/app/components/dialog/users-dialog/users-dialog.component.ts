@@ -1,4 +1,3 @@
-import { ProfileDetail } from '../../../interfaces/profile/profile-detail';
 import { ProfileService } from '../../../services/profile.service';
 import { Component, Inject, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { CreateUserDialogComponent } from '../create-user-dialog/create-user-dialog.component';
 import { EditUserDialogComponent } from '../edit-user-dialog/edit-user-dialog.component';
+import { ProfileDetail } from '../../../interfaces/profile/profile-detail';
 
 @Component({
   selector: 'app-users-dialog',
@@ -48,8 +48,8 @@ export class UsersDialogComponent implements OnInit {
 
   loadData(): void {
     this.isLoadingResults = true;
-    //this.profileService.getAllProfiles(this.userDetail.id).subscribe({
-    this.profileService.getAllProfiles().subscribe({
+    this.profileService.getAllProfiles(this.userDetail.id!).subscribe({
+    // this.profileService.getAllProfiles().subscribe({
       next: (profiles) => {
         this.profilesDetail = profiles;
         this.isLoadingResults = false;
@@ -89,13 +89,13 @@ export class UsersDialogComponent implements OnInit {
         const profile = {
           profileName: result
         }
-        this.profileService.createProfile(profile).subscribe({
+        this.profileService.createProfile(this.userDetail.id!, profile).subscribe({
           next: (response) => {
             this.snackbar.showMessage("Usuário adicionado com sucesso!");
             this.loadData();
           },
           error: (err) => {
-            this.snackbar.showMessage('Erro ao criar!');
+            this.snackbar.showMessage(err.error.message);
             console.error(err);
           }
         });
@@ -109,19 +109,20 @@ export class UsersDialogComponent implements OnInit {
       data: { detail: profile }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: ProfileDetail) => {
       if (result) {
-        console.log(result);        
+        console.log(result);
+        result.userId = this.userDetail.id;
         this.profileService.editProfile(result).subscribe({
           next: (response) => {        
             const profile = this.profilesDetail.find(p => p.id === result.id);
             if (profile) {
-              profile.profileName = result.name;
+              profile.profileName = result.profileName;
             }
             this.snackbar.showMessage("Usuário editado com sucesso!");
           },
           error: (err) => {
-            this.snackbar.showMessage('Erro ao editar!');
+            this.snackbar.showMessage(err.error.message);
             console.error(err);
           }
         });

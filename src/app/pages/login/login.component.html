@@ -1,4 +1,9 @@
 <mat-card>
+  @if (isLoadingResults) {
+    <div class="loading-shade">
+        <mat-spinner></mat-spinner>
+    </div>
+  }
   <mat-card-title>Login</mat-card-title>
   <mat-card-content>
   <form class="form" [formGroup]="form" (ngSubmit)="submit()">

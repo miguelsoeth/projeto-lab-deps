@@ -10,22 +10,21 @@ export class ProfileService {
 
   constructor(private http: HttpClient) { }
 
-  getAllProfiles=():Observable<ProfileDetail[]> => this.http.get<ProfileDetail[]>(`http://localhost:3000/profiles`);
+  // getAllProfiles=():Observable<ProfileDetail[]> => this.http.get<ProfileDetail[]>(`http://localhost:3000/profiles`);
 
-  deleteProfile=(id: string)=> this.http.delete(`http://localhost:3000/profiles/${id}`);
+  // deleteProfile=(id: string)=> this.http.delete(`http://localhost:3000/profiles/${id}`);
 
-  createProfile=(profile: ProfileDetail) => this.http.post(`http://localhost:3000/profiles/`, profile);
+  // createProfile=(profile: ProfileDetail) => this.http.post(`http://localhost:3000/profiles/`, profile);
 
-  editProfile=(profile: ProfileDetail) => this.http.put(`http://localhost:3000/profiles/${profile.id}`, profile);
+  // editProfile=(profile: ProfileDetail) => this.http.put(`http://localhost:3000/profiles/${profile.id}`, profile);
 
 
-  /*
   getAllProfiles=(userId: string):Observable<ProfileDetail[]> => this.http.get<ProfileDetail[]>(`http://localhost:5272/api/Profile/user/${userId}`);
 
   deleteProfile=(id: string)=> this.http.delete(`http://localhost:5272/api/Profile/delete/${id}`);
 
-  createProfile=(profile: ProfileDetail) => this.http.post(`http://localhost:5272/api/Profile/create`, profile);
+  createProfile=(userId: string, profile: ProfileDetail) => this.http.post(`http://localhost:5272/api/Profile/create/${userId}`, profile);
 
   editProfile=(profile: ProfileDetail) => this.http.put(`http://localhost:5272/api/Profile/edit/${profile.id}`, profile);
-  */
+
 }
