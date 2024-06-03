@@ -79,9 +79,10 @@ export class EditComponent implements OnInit {
       name: this.form.value.fullName,
       document: this.form.value.document,
       password: this.form.value.password,
-      roles: [this.form.value.roles],
+      roles: this.form.value.roles,
       isActive: this.form.value.disabled
     }
+    console.log(mappedDetail);
     this.authService.editUser(mappedDetail, this.id!).subscribe({
       next: (response) => {
         this.snackBar.showMessage(response.message);

@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-clients',
@@ -37,7 +38,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     MatProgressSpinnerModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    OptionsButtonComponent
+    OptionsButtonComponent,
+    MatSlideToggleModule
   ],
   providers: [provideNgxMask()],
   templateUrl: './clients.component.html',
@@ -46,20 +48,19 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 export class ClientsComponent implements AfterViewInit {
   authService = inject(AuthService);
 
-  displayedColumns: string[] = ['document','fullName', 'options'];
+  displayedColumns: string[] = ['document','name', 'options'];
   dataSource: MatTableDataSource<UserDetail> = new MatTableDataSource();
   data: UserDetail[] = [];
   isLoadingResults = true;
   isError = false;
   resultsLength = 0;
+  showDisabledUsers = true;
+  allUsers: UserDetail[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  
 
   ngAfterViewInit() {
-    //simula tempo de fetch
-    //timer(1000).subscribe(() => this.loadData());
     this.loadData();
   }
 
@@ -80,6 +81,20 @@ export class ClientsComponent implements AfterViewInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+  }
+
+  onToggleChange(event: any): void {
+    this.showDisabledUsers = event.checked;
+    console.log('Show disabled users:', this.showDisabledUsers);
+    if (!this.showDisabledUsers) {
+      this.allUsers = this.dataSource.data;
+      this.dataSource.data = this.dataSource.data.filter(user => user.isActive == true);
+    } else {
+        this.dataSource.data = this.allUsers;
+    }
+    this.resultsLength = this.dataSource.data.length;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
 }

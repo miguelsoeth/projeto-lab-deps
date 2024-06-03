@@ -1,6 +1,9 @@
 <mat-card>
     <mat-card-header>
         <mat-card-title>Clientes</mat-card-title>
+        <div class="toggle-disabled-users">
+            <mat-slide-toggle [checked]="showDisabledUsers" (change)="onToggleChange($event)">Mostrar clientes desativados?</mat-slide-toggle>
+        </div> 
         <div class="top-button-container">
             <button mat-raised-button color="primary" routerLink="/registrar">Novo cliente</button>
         </div>        
@@ -20,7 +23,7 @@
             </ng-container>
         
             <!-- Nome completo Column -->
-            <ng-container matColumnDef="fullName">
+            <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Nome </th>
             <td mat-cell *matCellDef="let client"> {{client.name}} </td>
             </ng-container>

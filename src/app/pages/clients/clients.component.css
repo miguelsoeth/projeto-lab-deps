@@ -40,3 +40,10 @@ mat-card-header {
 .fixed-column-width {
     width: 340px;
 }
+
+.toggle-disabled-users {
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+    padding: 0px 40px;
+}
