@@ -48,7 +48,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 export class ClientsComponent implements AfterViewInit {
   authService = inject(AuthService);
 
-  displayedColumns: string[] = ['document','name', 'options'];
+  displayedColumns: string[] = ['document','name', 'active', 'options'];
   dataSource: MatTableDataSource<UserDetail> = new MatTableDataSource();
   data: UserDetail[] = [];
   isLoadingResults = true;
@@ -95,6 +95,15 @@ export class ClientsComponent implements AfterViewInit {
     this.resultsLength = this.dataSource.data.length;
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  checkAdminOnly(client: UserDetail): boolean {
+    if (client.roles!.length === 1) {
+      return !client.roles!.includes("Admin");
+    }
+    else {
+      return true;
+    }
   }
 
 }

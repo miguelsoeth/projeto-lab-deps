@@ -1,1 +1,29 @@
-<p>credits-dialog works!</p>
+<mat-dialog-content>
+    <h1 mat-dialog-title>
+        Créditos de {{userDetail.name}}
+    </h1>
+    @if (isLoadingResults) {
+        <div class="loading-shade">
+            <mat-spinner></mat-spinner>
+        </div>
+    }
+    <mat-form-field class="credit-content">
+        <mat-label>Valor</mat-label>
+        <input matInput 
+            type="text" 
+            value="" 
+            step="0.01" 
+            prefix="R$ " 
+            mask="separator.2" 
+            thousandSeparator="."
+            decimalMarker="," 
+            [(ngModel)]="showCredits">
+    </mat-form-field>
+    <div class="buttons">
+        <button mat-button (click)="changeCredits(credits)" cdkFocusInitial>Retomar valor inicial<mat-icon matSuffix>undo</mat-icon></button>
+        <button mat-raised-button color="primary" (click)="saveCredits()">Atualizar saldo<mat-icon matSuffix>currency_exchange</mat-icon></button>
+    </div>    
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Okay</button>
+</mat-dialog-actions>

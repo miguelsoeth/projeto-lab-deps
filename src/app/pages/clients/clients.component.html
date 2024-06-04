@@ -28,14 +28,20 @@
             <td mat-cell *matCellDef="let client"> {{client.name}} </td>
             </ng-container>
 
+            <!-- Ativo Column -->
+            <ng-container matColumnDef="active">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Ativo </th>
+                <td mat-cell *matCellDef="let client" class="fixed-active-width"> {{client.isActive ? 'Sim' : 'Não'}} </td>
+            </ng-container>
+
             <!-- Opções Column -->
             <ng-container matColumnDef="options">
                 <th mat-header-cell *matHeaderCellDef> Opções </th>
                 <td mat-cell *matCellDef="let client" class="fixed-column-width">
-                    <div class="options-button-container">
+                    <div class="options-button-container" *ngIf="checkAdminOnly(client)">
                         <button mat-raised-button [routerLink]="['editar', client.id]">Editar</button>
                         <app-options-button [userDetail]="client"/>
-                    </div>
+                    </div>             
                 </td>
             </ng-container>
         

@@ -8,10 +8,6 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (req.url.includes('localhost:3000')) {
-    return next(req);
-  }
-
   if (authService.getToken()) {
     const cloned = req.clone({
       headers: req.headers.set('Authorization', 'Bearer ' + authService.getToken())      
@@ -21,12 +17,15 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
       catchError((err:HttpErrorResponse) => {
         if(err.status===401) {
           console.log("Revalidando token...");
-          authService.refreshToken({
-            email: authService.getUserDetail()?.email,
+          const tokenObj = {
+            refreshToken: authService.getRefreshToken() || "",
             token: authService.getToken() || "",
-            refreshToken: authService.getRefreshToken() || ""
-          }).subscribe({
+            email: authService.getUserDetail()?.email            
+          }
+          console.log("tokenObj:", tokenObj);
+          authService.refreshToken(tokenObj).subscribe({
             next:(response) => {
+              console.log("response:", response);
               if(response.isSuccess) {
                 localStorage.setItem("user", JSON.stringify(response));
                 const cloned=req.clone({

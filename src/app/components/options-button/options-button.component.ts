@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { UsersDialogComponent } from '../dialog/users-dialog/users-dialog.component';
 import { UserDetail } from '../../interfaces/account/user-detail';
+import { CreditsDialogComponent } from '../dialog/credits-dialog/credits-dialog.component';
 
 @Component({
   selector: 'app-options-button',
@@ -24,6 +25,12 @@ export class OptionsButtonComponent {
 
   openUsersDialog() {
     const dialogRef = this.dialog.open(UsersDialogComponent, {
+      data: { userDetail: this.userDetail }
+    });
+  }
+
+  openCreditDialog() {
+    const dialogRef = this.dialog.open(CreditsDialogComponent, {
       data: { userDetail: this.userDetail }
     });
   }

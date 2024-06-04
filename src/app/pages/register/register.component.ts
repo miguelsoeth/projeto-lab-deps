@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
       next: (response) => {
         console.log(response);
         this.snackBar.showMessage(response.message);
-        this.router.navigate(['/']);
+        this.router.navigate(['/clientes']);
       },
       error: (err: HttpErrorResponse) => {
         if(err!.status===400) {

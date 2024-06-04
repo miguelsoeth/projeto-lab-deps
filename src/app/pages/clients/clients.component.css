@@ -38,7 +38,11 @@ mat-card-header {
 }
   
 .fixed-column-width {
-    width: 340px;
+    width: 250px;
+}
+
+.fixed-active-width {
+    width: 250px;
 }
 
 .toggle-disabled-users {

@@ -1,0 +1,56 @@
+mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.credit-content {
+    width: 100%;
+}
+
+.credit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;    
+    gap: 15px;
+}
+
+.currency-changer {
+    padding-bottom: 25px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: lightgray; 
+    border-radius: 10px;
+}
+
+.loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
