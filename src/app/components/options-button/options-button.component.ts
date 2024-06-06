@@ -6,6 +6,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { UsersDialogComponent } from '../dialog/users-dialog/users-dialog.component';
 import { UserDetail } from '../../interfaces/account/user-detail';
 import { CreditsDialogComponent } from '../dialog/credits-dialog/credits-dialog.component';
+import { ProductDialogComponent } from '../dialog/product-dialog/product-dialog.component';
 
 @Component({
   selector: 'app-options-button',
@@ -31,6 +32,12 @@ export class OptionsButtonComponent {
 
   openCreditDialog() {
     const dialogRef = this.dialog.open(CreditsDialogComponent, {
+      data: { userDetail: this.userDetail }
+    });
+  }
+
+  openProductDialog() {
+    const dialogRef = this.dialog.open(ProductDialogComponent, {
       data: { userDetail: this.userDetail }
     });
   }

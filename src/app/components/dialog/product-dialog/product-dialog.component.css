@@ -1,0 +1,79 @@
+.loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+mat-dialog-content {
+    min-height: 550px;
+    min-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.product-content {
+    height: 400px;
+    overflow: scroll;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: lightgray; 
+    border-radius: 10px;
+}
+
+.sale-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    width: 600px;
+}
+
+.sale-name {
+    flex: 1;
+    max-width: 250px;
+}
+
+.empty-sales {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    border: 1px solid black; 
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.sale-name h3,
+.sale-name p {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2;
+}
+
+.sale-name h3 {
+    font-weight: 500;
+    color: black;
+}
+
+.sale-price {
+    flex-shrink: 0;
+    white-space: nowrap;
+}

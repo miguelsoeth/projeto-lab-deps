@@ -48,13 +48,9 @@ export class EditComponent implements OnInit {
       if (this.id != null) {
         this.authService.getIdDetail(this.id).subscribe(user => {
           this.user = user;
-          //console.log(user);
-  
-          // Initialize the form after receiving the user data
           this.initializeForm();
         });
       } else {
-        // Initialize the form even if there's no id or user data
         this.initializeForm();
       }      
     });

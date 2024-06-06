@@ -1,0 +1,38 @@
+<mat-dialog-content>
+    <h1 mat-dialog-title>
+        Produtos de {{userDetail.name}}
+    </h1>
+    @if (isLoadingResults) {
+        <div class="loading-shade">
+            <mat-spinner></mat-spinner>
+        </div>
+    }
+    <div class="product-content">
+        @if (sales.length === 0) {
+            <div class="empty-sales">
+                <span>Esse cliente não possui produtos!</span>
+                <span>Adicione um produto clicando em <span style="border: 1px solid gray; border-radius: 5px; padding: 0px 8px;">+ Adicionar produto</span> abaixo</span>            
+            </div>
+        }
+        @else {
+            @for (entry of sales; track entry) {
+                <div class="sale-box">
+                    <div class="sale-name">
+                        <h3>Title</h3>
+                        <p>{{entry.productName}} / {{entry.productDescription}}</p>
+                    </div>
+                    <div class="sale-price">{{ entry.valor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}/consulta</div>
+                    <div class="toggle-disabled-users">
+                        <mat-slide-toggle [checked]="entry.productActive" (change)="onToggleChange($event, entry.saleId!)">Ativo?</mat-slide-toggle>
+                    </div> 
+                </div>
+            }
+        }
+    </div>
+    <div>
+        <button mat-raised-button color="primary" (click)="addProduct()">Adicionar produto<mat-icon matSuffix>add</mat-icon></button>
+    </div>    
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Okay</button>
+</mat-dialog-actions>

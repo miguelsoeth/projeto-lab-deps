@@ -48,7 +48,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 export class ClientsComponent implements AfterViewInit {
   authService = inject(AuthService);
 
-  displayedColumns: string[] = ['document','name', 'active', 'options'];
+  displayedColumns: string[] = ['document','name', 'isActive', 'options'];
   dataSource: MatTableDataSource<UserDetail> = new MatTableDataSource();
   data: UserDetail[] = [];
   isLoadingResults = true;
