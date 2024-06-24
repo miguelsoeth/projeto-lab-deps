@@ -77,3 +77,9 @@ mat-dialog-content {
     flex-shrink: 0;
     white-space: nowrap;
 }
+
+.toggle-disabled-users {
+    display: flex;
+    align-items: center;
+    gap: 10px
+}

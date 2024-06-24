@@ -8,6 +8,9 @@ import { ClientsComponent } from './pages/clients/clients.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { roleGuard } from './guards/role.guard';
 import { EditComponent } from './pages/edit/edit.component';
+import { ConsultaOnlineComponent } from './pages/consulta-online/consulta-online.component';
+import { ConsultaLoteComponent } from './pages/consulta-lote/consulta-lote.component';
+import { UploadCsvComponent } from './components/upload-csv/upload-csv.component';
 
 export const routes: Routes = [
     {
@@ -49,6 +52,22 @@ export const routes: Routes = [
         canActivate:[roleGuard],
         data: {
             roles:['Admin'],
+        }
+    },
+    {
+        path: 'consulta/online',
+        component: ConsultaOnlineComponent,
+        canActivate:[roleGuard],
+        data: {
+            roles:['User'],
+        }
+    },
+    {
+        path: 'consulta/lote',
+        component: ConsultaLoteComponent,
+        canActivate:[roleGuard],
+        data: {
+            roles:['User'],
         }
     }
 ];

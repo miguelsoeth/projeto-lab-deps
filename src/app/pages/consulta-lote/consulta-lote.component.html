@@ -1,0 +1,24 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Consulta lote</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form class="selection-bar" *ngIf="sales$ | async as sales">            
+            <mat-form-field>
+                <mat-label>Selecione o produto</mat-label>
+                <mat-select [formControl]="saleControl" required>
+                @for (sale of sales; track sale) {
+                    <mat-option [value]="sale">{{sale.saleName}}</mat-option>
+                }
+                </mat-select>
+                <mat-hint *ngIf="saleControl?.value">{{saleControl.value?.productName}} | {{ saleControl.value?.valor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}/consulta</mat-hint>
+                @if (saleControl.hasError('required')) {
+                <mat-error>Obrigatório</mat-error>
+                }
+            </mat-form-field>
+            <button [disabled]="form.invalid" mat-flat-button color="primary" type="button" (click)="openNovaConsultaDialog(saleControl.value!)"> 
+                <span>Novo lote</span>
+            </button>
+        </form>
+    </mat-card-content>
+</mat-card>

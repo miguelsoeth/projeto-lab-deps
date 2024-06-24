@@ -1,21 +1,31 @@
 .toolbar {
+    display: flex;
     width: auto;
+    justify-content: space-between;
     border-radius: 10px;
     margin: 10px;
 }
 
-.container {
+.left {
+    justify-content: flex-start;
+    width: 30%;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.right {
+    width: 30%;
+    justify-content: flex-end;
     display: flex;
-    width: 100%;
+    margin-left: 20px;
 }
 
 .route {
     text-decoration: none;
     color: white;
-}
-
-.itens {
-    margin-left: auto;
 }
 
 .user {
@@ -32,4 +42,11 @@
     font-size: 0.9rem;
     font-weight: 400;
     text-align: end;
+}
+
+.credits {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px 20px;
 }

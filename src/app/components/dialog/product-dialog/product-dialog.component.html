@@ -18,12 +18,13 @@
             @for (entry of sales; track entry) {
                 <div class="sale-box">
                     <div class="sale-name">
-                        <h3>Title</h3>
+                        <h3>{{entry.saleName}}</h3>
                         <p>{{entry.productName}} / {{entry.productDescription}}</p>
                     </div>
                     <div class="sale-price">{{ entry.valor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}/consulta</div>
                     <div class="toggle-disabled-users">
-                        <mat-slide-toggle [checked]="entry.productActive" (change)="onToggleChange($event, entry.saleId!)">Ativo?</mat-slide-toggle>
+                        <mat-slide-toggle color="warn" [checked]="entry.productActive" (change)="onToggleChange($event, entry.saleId!)">Ativo?</mat-slide-toggle>
+                        <button mat-mini-fab color="warn" (click)="deleteProduct(entry.saleId!)"><mat-icon>delete</mat-icon></button>
                     </div> 
                 </div>
             }

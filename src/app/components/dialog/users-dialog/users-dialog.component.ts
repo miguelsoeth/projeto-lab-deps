@@ -48,7 +48,7 @@ export class UsersDialogComponent implements OnInit {
 
   loadData(): void {
     this.isLoadingResults = true;
-    this.profileService.getAllProfiles(this.userDetail.id!).subscribe({
+    this.profileService.getUserProfiles(this.userDetail.id!).subscribe({
     // this.profileService.getAllProfiles().subscribe({
       next: (profiles) => {
         this.profilesDetail = profiles;

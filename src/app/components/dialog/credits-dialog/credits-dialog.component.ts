@@ -12,6 +12,7 @@ import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { CreditService } from '../../../services/credit.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-credits-dialog',
@@ -86,7 +87,24 @@ export class CreditsDialogComponent implements OnInit {
       this.credit.increaseUserCredits(this.userDetail.id!, Math.abs(value)).subscribe();
     }
     this.changeCredits(this.credits);
-    this.snackbar.showMessage(`Cŕeditos de ${this.userDetail.name} atualizado para R$ ${this.credits.toString()}`);
+    this.snackbar.showMessage(`Cŕeditos de ${this.userDetail.name} atualizado para R$ ${this.credits.toFixed(2)}`);
+  }
+
+  confirmCreditsChange(): void {
+    if (this.credits == this.showCredits) {
+      this.snackbar.showMessage("Valor inicial não alterado.");
+      return
+    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '450px',
+      data: { action: 'Tem certeza que deseja alterar o cŕedito desse usuário?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.saveCredits();
+      }
+    });
   }
 
 }

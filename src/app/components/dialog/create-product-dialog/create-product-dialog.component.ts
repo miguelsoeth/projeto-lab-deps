@@ -59,24 +59,25 @@ export class CreateProductDialogComponent implements OnInit {
   }
 
   enviar(): void {
-    if (this.form.valid) {
-      const obj:SaleDetail = {
-        userId: this.userDetail.id,
-        productId: this.form.value.produtos.id,
-        valor: this.form.value.valor,
-        productName: '',
-        productDescription: ''
-      }
-      this.saleService.createSale(obj).subscribe({
-        next: (response) => {
-          return this.dialogRef.close(response);
-        },
-        error: (err) => {
-          console.error(err);
-        }
-      });
-    } else {
+    if (!this.form.valid) {
       console.log('Form is invalid');
     }
+    
+    const obj:SaleDetail = {
+      userId: this.userDetail.id,
+      productId: this.form.value.produtos.id,
+      valor: this.form.value.valor,
+      productName: '',
+      productDescription: ''
+    }
+    console.log(obj);
+    this.saleService.createSale(obj).subscribe({
+      next: (response) => {
+        return this.dialogRef.close(response);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 }

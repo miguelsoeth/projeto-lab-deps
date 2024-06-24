@@ -1,0 +1,5 @@
+<div class="file-div">
+    <button type="button" mat-flat-button color="primary" (click)="fileInput.click()">Selecione o arquivo CSV</button>
+    <input hidden (change)="onFileSelected($event)" #fileInput type="file">
+    <span>{{selectedFile?.name}}</span>
+</div>

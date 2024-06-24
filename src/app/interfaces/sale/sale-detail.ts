@@ -1,5 +1,6 @@
 export interface SaleDetail {
     saleId?: string;
+    saleName?: string;
     userId?: string;
     productId?: string;
     productName?: string;

@@ -19,12 +19,24 @@ export class ProfileService {
   // editProfile=(profile: ProfileDetail) => this.http.put(`http://localhost:3000/profiles/${profile.id}`, profile);
 
 
-  getAllProfiles=(userId: string):Observable<ProfileDetail[]> => this.http.get<ProfileDetail[]>(`http://localhost:5272/api/Profile/user/${userId}`);
+  getUserProfiles=(userId: string):Observable<ProfileDetail[]> => this.http.get<ProfileDetail[]>(`http://localhost:5272/api/Profile/user/${userId}`);
 
   deleteProfile=(id: string)=> this.http.delete(`http://localhost:5272/api/Profile/delete/${id}`);
 
   createProfile=(userId: string, profile: ProfileDetail) => this.http.post(`http://localhost:5272/api/Profile/create/${userId}`, profile);
 
   editProfile=(profile: ProfileDetail) => this.http.put(`http://localhost:5272/api/Profile/edit/${profile.id}`, profile);
+
+  setProfileKey(name:string) {
+    localStorage.setItem('selectedProfile', name);
+  }
+
+  getProfileKey(): string | null {
+    return localStorage.getItem('selectedProfile');
+  }
+
+  deleteProfileKey() {
+    localStorage.removeItem('selectedProfile');
+  }
 
 }

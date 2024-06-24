@@ -107,4 +107,26 @@ export class ProductDialogComponent implements OnInit {
     
   }
 
+  deleteProduct(id: string) {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '450px',
+      data: { action: 'Tem certeza que deseja deletar esse produto?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.sale.deleteSale(id).subscribe({
+          next: (response) => {
+            this.snackbar.showMessage(response.message);
+            this.loadSales();
+          },
+          error: (err) => {
+            this.snackbar.showMessage(err.error.message);
+          }
+        });
+      }
+    });
+    
+  }
+
 }

@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="toolbar">
     @if(isLoggedIn()) {
-        <div class="botoes">
+        <div class="left">
             <button mat-button routerLink="/clientes" *ngIf="isAdmin()">
                 <span>Clientes</span>
             </button>
@@ -23,33 +23,62 @@
                 </button>
             </mat-menu>
         </div>
-        
-        <div class="container" *ngIf="authService.getUserDetail() as userDetail">
-            <a class="itens" [matMenuTriggerFor]="menuConta">
-                <div class="user">
-                    <span class="name">
-                        {{userDetail?.fullName}}
-                    </span>
-                    <span class="role">
-                        {{userDetail?.roles}}
-                    </span>
-                </div>
-            </a>
-            <mat-menu #menuConta="matMenu" xPosition="before">
-                <button routerLink="/conta" mat-menu-item>
-                    <mat-icon>account_circle</mat-icon>
-                    <span>Perfil</span>
-                </button>
-                <button mat-menu-item (click)="logout()">
-                    <mat-icon>logout</mat-icon>
-                    <span>Deslogar</span>
-                </button>                
-            </mat-menu>
+        <div class="center" *ngIf="profilesList">        
+            @if (isUser()) {
+                <a [matMenuTriggerFor]="menuProfile">
+                    <div class="user">
+                            {{profileSelected}}
+                    </div>
+                </a>
+                <mat-menu #menuProfile="matMenu">
+                    @for (profile of profilesList; track profile) {
+                        <button mat-menu-item (click)="setProfile(profile.profileName!)">
+                            <mat-icon>person</mat-icon>
+                            <span>{{profile.profileName}}</span>
+                        </button>
+                    }
+                    <button mat-menu-item (click)="openUsersDialog()">
+                        <mat-icon>manage_accounts</mat-icon>
+                        <span>Gerenciar</span>
+                    </button>       
+                </mat-menu>
+            }            
         </div>
-        
+        <div class="right" *ngIf="authService.getUserDetail() as userDetail">
+            @if (isUser()) {
+                <div class="credits" *ngIf="credits$ | async as credit">
+                    <span class="name">Cŕeditos</span>
+                    <span class="role">{{ credit.amount | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>            
+                </div>
+            }            
+            <div>
+                <a [matMenuTriggerFor]="menuConta">
+                    <div class="user">
+                        <span class="name">
+                            {{userDetail?.fullName}}
+                        </span>
+                        <span class="role">
+                            {{userDetail?.roles}}
+                        </span>
+                    </div>
+                </a>
+                <mat-menu #menuConta="matMenu" xPosition="before">
+                    <button routerLink="/conta" mat-menu-item>
+                        <mat-icon>account_circle</mat-icon>
+                        <span>Perfil</span>
+                    </button>
+                    <button mat-menu-item (click)="logout()">
+                        <mat-icon>logout</mat-icon>
+                        <span>Deslogar</span>
+                    </button>                
+                </mat-menu>
+            </div>            
+        </div>        
     }
     @else{
-        <div class="itens">
+        <div class="left"></div>
+        <div class="center"></div>
+        <div class="right">                    
             <a mat-button routerLink="/login" class="route">
                 Entrar
             </a>

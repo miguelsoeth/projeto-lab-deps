@@ -1,0 +1,20 @@
+<mat-dialog-content>
+    <h1 mat-dialog-title>
+        Novo lote
+    </h1>
+    <div *ngIf="cost">
+        <strong>Quant. de Docs: {{parsedDocs.length}} | Custo: {{cost | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+    </div>
+    <app-upload-csv (parsedDocs)="onParsedDocsReceived($event)"></app-upload-csv>        
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-flat-button mat-dialog-close>Cancelar</button>
+    <button 
+        mat-mini-fab 
+        color="warn" 
+        matTooltip="Documentos inválidos: {{invalidDocuments.join(', ')}}" 
+        *ngIf="invalidDocuments.length > 0">
+        <mat-icon>warning</mat-icon>
+    </button>
+    <button mat-flat-button color="primary" (click)="enviarLote()" [disabled]="invalidDocuments.length > 0 || parsedDocs.length == 0">Enviar</button>
+</mat-dialog-actions>

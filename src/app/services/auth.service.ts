@@ -88,6 +88,7 @@ export class AuthService {
 
   logout=():void => {
     localStorage.removeItem(this.userKey);
+    localStorage.removeItem('selectedProfile');
   }
 
   getToken = ():string|null => {
