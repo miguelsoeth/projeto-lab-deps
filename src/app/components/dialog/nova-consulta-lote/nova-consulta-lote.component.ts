@@ -79,6 +79,8 @@ export class NovaConsultaLoteComponent {
       perfil: selectedProfile
     }
     console.log(obj);
+
+    this.dialogRef.close();
   }
 
 }

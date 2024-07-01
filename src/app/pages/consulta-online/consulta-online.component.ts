@@ -17,6 +17,8 @@ import { SaleDetail } from '../../interfaces/sale/sale-detail';
 import { SaleService } from '../../services/sale.service';
 import { environment } from '../../../environments/environment.development';
 import { SnackbarService } from '../../services/snackbar.service';
+import { ConsultaOnlineDto } from '../../interfaces/consulta/consulta-online.model';
+import { ConsultaService } from '../../services/consulta.service';
 
 @Component({
   selector: 'app-consulta-online',
@@ -41,6 +43,7 @@ export class ConsultaOnlineComponent {
   authService = inject(AuthService);
   snackbar = inject(SnackbarService);
   saleService = inject(SaleService);
+  consultaService = inject(ConsultaService);
   sales$: Observable<SaleDetail[]> = this.saleService.getAllSales(this.authService.getUserDetail()?.id);
   
   fb = inject(FormBuilder);
@@ -58,11 +61,17 @@ export class ConsultaOnlineComponent {
       return
     }
     
-    const obj = {
-      venda: this.saleControl.value?.saleId,
-      documento: this.documentControl.value,
-      perfil: localStorage.getItem('selectedProfile')
+    const consulta: ConsultaOnlineDto = {
+      usuario: this.authService.getUserDetail()?.id,
+      venda: this.saleControl.value?.saleId!,
+      documento: this.documentControl.value!,
+      perfil: localStorage.getItem('selectedProfile')!
     }
-    console.log(obj);
+
+    this.consultaService.postConsultaOnline(consulta).subscribe({
+      next: (response) => {
+        console.log(response);
+      }
+    });
   }
 }
