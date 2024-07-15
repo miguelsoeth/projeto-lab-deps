@@ -80,9 +80,7 @@ export class ConsultaOnlineComponent {
     this.consultaService.postConsultaOnline(consulta).subscribe({
       next: (response) => {
         this.isLoadingResults = false;
-        console.log("Response: ", response);
         this.result = response;
-
         console.log("Result: ", this.result);
       }
     });

@@ -38,12 +38,16 @@
                 Consultar
             </button>     
         </form>
-        <div *ngIf="result">
+        <div *ngIf="result && result.success == true">
             <p>Conteudo</p>
             <p>{{result.data.cnpj}}</p>
             <p>{{result.data.razaoSocial}}</p>
             <p>{{result.data.uf}}</p>
             <p>{{result.data.municipio}}</p>
-        </div>        
+        </div>
+        <div *ngIf="result && result.success == false">
+            <p>Conteudo</p>
+            <p>Sem resultados</p>
+        </div>      
     </mat-card-content>
 </mat-card>
