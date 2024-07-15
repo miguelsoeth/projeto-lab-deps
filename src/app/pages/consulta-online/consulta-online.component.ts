@@ -19,11 +19,16 @@ import { environment } from '../../../environments/environment.development';
 import { SnackbarService } from '../../services/snackbar.service';
 import { ConsultaOnlineDto } from '../../interfaces/consulta/consulta-online.model';
 import { ConsultaService } from '../../services/consulta.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Pagina } from '../../interfaces/consulta/pagina';
+import { DadosItem } from '../../interfaces/consulta/consulta-resultado2';
+import { ConsultaResultado } from '../../interfaces/consulta/consulta-resultado';
 
 @Component({
   selector: 'app-consulta-online',
   standalone: true,
   imports: [
+    CommonModule,
     MatCardModule,
     MatButtonModule,
     MatFormFieldModule,
@@ -33,13 +38,17 @@ import { ConsultaService } from '../../services/consulta.service';
     CommonModule,
     NgxMaskDirective,
     NgxMaskPipe,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './consulta-online.component.html',
   providers: [provideNgxMask()],
   styleUrl: './consulta-online.component.css'
 })
 export class ConsultaOnlineComponent {
+  isLoadingResults = false;
+  result?: ConsultaResultado;
+
   authService = inject(AuthService);
   snackbar = inject(SnackbarService);
   saleService = inject(SaleService);
@@ -67,10 +76,14 @@ export class ConsultaOnlineComponent {
       documento: this.documentControl.value!,
       perfil: localStorage.getItem('selectedProfile')!
     }
-
+    this.isLoadingResults = true;
     this.consultaService.postConsultaOnline(consulta).subscribe({
       next: (response) => {
-        console.log(response);
+        this.isLoadingResults = false;
+        console.log("Response: ", response);
+        this.result = response;
+
+        console.log("Result: ", this.result);
       }
     });
   }

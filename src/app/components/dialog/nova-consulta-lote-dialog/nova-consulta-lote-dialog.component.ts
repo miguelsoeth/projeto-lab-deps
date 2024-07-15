@@ -9,9 +9,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { CreditService } from '../../../services/credit.service';
+import { ConsultaLoteDto } from '../../../interfaces/consulta/consulta-lote.model';
+import { AuthService } from '../../../services/auth.service';
+import { ConsultaService } from '../../../services/consulta.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
-  selector: 'app-nova-consulta',
+  selector: 'app-nova-consulta-dialog',
   standalone: true,
   imports: [
     MatDialogModule, 
@@ -19,20 +23,25 @@ import { CreditService } from '../../../services/credit.service';
     UploadCsvComponent, 
     MatTooltipModule, 
     CommonModule, 
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
-  templateUrl: './nova-consulta-lote.component.html',
-  styleUrl: './nova-consulta-lote.component.css'
+  templateUrl: './nova-consulta-lote-dialog.component.html',
+  styleUrl: './nova-consulta-lote-dialog.component.css'
 })
-export class NovaConsultaLoteComponent {
+export class NovaConsultaLoteDialogComponent {
+  isLoadingResults = false;
+
   snackbar = inject(SnackbarService);
+  authService = inject(AuthService)
   credits = inject(CreditService);  
+  consultaService = inject(ConsultaService);
 
   parsedDocs: string[] = [];
   invalidDocuments: string[] = [];
   cost: number | null = null;
 
-  constructor(public dialogRef: MatDialogRef<NovaConsultaLoteComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(public dialogRef: MatDialogRef<NovaConsultaLoteDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     //console.log(this.data);
   }
 
@@ -53,6 +62,8 @@ export class NovaConsultaLoteComponent {
   }
 
   enviarLote(): void {
+    this.isLoadingResults = true;
+
     if (this.invalidDocuments.length > 0) {
       console.log("documentos inválidos presentes")
       return
@@ -72,15 +83,22 @@ export class NovaConsultaLoteComponent {
       }
     });
     
-    console.log("Enviar pedido em lote");        
-    const obj = {
+    console.log("Enviar pedido em lote");
+    const consulta: ConsultaLoteDto = {
+      usuario: this.authService.getUserDetail()?.id,
       venda: this.data.sale.saleId,
       documentos: this.parsedDocs,
       perfil: selectedProfile
     }
-    console.log(obj);
-
-    this.dialogRef.close();
+    console.log(consulta);
+    this.consultaService.postConsultaLote(consulta).subscribe({
+      next: (response) => {
+        this.snackbar.showMessage(response.message);
+        this.isLoadingResults = false;
+        this.dialogRef.close();
+      }
+    });
+    
   }
 
 }

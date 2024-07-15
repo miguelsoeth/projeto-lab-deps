@@ -1,6 +1,6 @@
 export interface ConsultaLoteDto {
     usuario: string;
     venda: string;
-    documento: string[];
+    documentos: string[];
     perfil: string;
 }

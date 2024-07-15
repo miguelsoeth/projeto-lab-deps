@@ -2,6 +2,13 @@
     <mat-card-header>
         <mat-card-title>Consulta online</mat-card-title>
     </mat-card-header>
+
+    @if (isLoadingResults) {
+        <div class="loading-shade">
+            <mat-spinner></mat-spinner>
+        </div>
+    }
+    
     <mat-card-content>
         <form class="selection-bar" *ngIf="sales$ | async as sales">
             <mat-form-field>
@@ -31,6 +38,12 @@
                 Consultar
             </button>     
         </form>
-        
+        <div *ngIf="result">
+            <p>Conteudo</p>
+            <p>{{result.data.cnpj}}</p>
+            <p>{{result.data.razaoSocial}}</p>
+            <p>{{result.data.uf}}</p>
+            <p>{{result.data.municipio}}</p>
+        </div>        
     </mat-card-content>
 </mat-card>
