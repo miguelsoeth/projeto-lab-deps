@@ -1,8 +1,80 @@
 <mat-card>
+    @if (isLoadingResults) {
+        <div class="loading-shade">
+            <mat-spinner></mat-spinner>
+        </div>
+    }
     <mat-card-header>
-        <mat-card-title>Histórico</mat-card-title>
+        <mat-card-title>Histórico de consulta</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        
+        <ng-container *ngIf="isAdmin(); else notAdmin">
+            <form class="filtros">
+                <p>Filtros</p>
+                <mat-form-field>
+                    <input matInput placeholder="Cliente" #inputClient>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput mask="CPF_CNPJ" placeholder="Documento" #inputDocument>
+                </mat-form-field>
+                <button mat-flat-button color="primary" type="button" (click)="filtrar(inputClient.value, inputDocument.value)">
+                    <mat-icon matSuffix>search</mat-icon>
+                    Buscar
+                </button>
+            </form>
+        </ng-container>
+        <ng-template #notAdmin>
+            <form class="filtros">
+                <p>Filtros</p>
+                <mat-form-field>
+                    <input matInput mask="CPF_CNPJ" placeholder="Documento" #inputDocument>
+                </mat-form-field>
+                <button mat-flat-button color="primary" type="button" (click)="filtrar(undefined, inputDocument.value)">
+                    <mat-icon matSuffix>search</mat-icon>
+                    Buscar
+                </button>
+            </form>
+        </ng-template>
+
+        <table mat-table [dataSource]="data" class="example-table">
+            
+            <!-- Date Column -->
+            <ng-container matColumnDef="Date">
+                <th mat-header-cell *matHeaderCellDef> Data hora </th>
+                <td mat-cell *matCellDef="let element"> {{element.date | date: 'dd/MM/yyyy HH:mm'}} </td>
+            </ng-container>
+
+            <!-- CNPJ Column -->
+            <ng-container matColumnDef="Cnpj">
+                <th mat-header-cell *matHeaderCellDef> Documento </th>
+                <td mat-cell *matCellDef="let element"> {{element.cnpj | mask: "000.000.000-00||00.000.000/0000-00"}} </td>
+            </ng-container>
+
+            <!-- Razao Social Column -->
+            <ng-container matColumnDef="RazaoSocial">
+                <th mat-header-cell *matHeaderCellDef> Razão Social </th>
+                <td mat-cell *matCellDef="let element"> {{element.razaoSocial}} </td>
+            </ng-container>
+
+            <!-- Usuario Column -->
+            <ng-container matColumnDef="usuario" *ngIf="isAdmin()">
+                <th mat-header-cell *matHeaderCellDef> Usuário </th>
+                <td mat-cell *matCellDef="let element"> {{element.usuario}} </td>
+            </ng-container>
+
+            <!-- Visualizar Column -->
+            <ng-container matColumnDef="opcoes">
+                <th mat-header-cell *matHeaderCellDef> Opções </th>
+                <td mat-cell *matCellDef="let element">
+                    <!-- <button mat-button (click)="visualizar(element._id)">Visualizar</button> -->
+                    <button mat-button [routerLink]="['/consulta/visualizar', element._id]">Visualizar</button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
     </mat-card-content>
 </mat-card>
+  

@@ -19,6 +19,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-consulta-lote',
@@ -34,7 +35,8 @@ import { MatTableModule } from '@angular/material/table';
     MatProgressSpinnerModule,
     MatTableModule,
     MatPaginatorModule,
-    DatePipe
+    DatePipe,
+    MatIconModule
   ],
   templateUrl: './consulta-lote.component.html',
   styleUrl: './consulta-lote.component.css'
@@ -61,6 +63,10 @@ export class ConsultaLoteComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit(): void {    
+    this.fetchData();
+  }
+
+  fetchData() {
     merge(this.paginator.page)
       .pipe(
         startWith({}),
@@ -94,6 +100,10 @@ export class ConsultaLoteComponent implements AfterViewInit {
         sale: sale
       }
     });
+  }
+
+  refreshLotes() {
+    this.fetchData();
   }
 
 }

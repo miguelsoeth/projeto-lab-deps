@@ -3,3 +3,27 @@ mat-card {
     box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.6);
     margin: 30px;
 }
+
+.loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filtros {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.filtros button {
+    width: 15%;
+    align-self: flex-end;
+}

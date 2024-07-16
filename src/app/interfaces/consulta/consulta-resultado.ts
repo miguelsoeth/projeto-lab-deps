@@ -2,10 +2,10 @@ export interface ConsultaResultado {
     success?: boolean;
     errors: any;
     message: string;
-    data: Data;    
+    data: ResultData;    
 }
 
-interface Data {
+export interface ResultData {
     cnpj: string;
     razaoSocial: string;
     uf: string;

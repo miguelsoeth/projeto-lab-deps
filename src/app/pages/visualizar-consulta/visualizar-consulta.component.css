@@ -4,22 +4,6 @@ mat-card {
     margin: 30px;
 }
 
-.selection-bar {
-    margin: 15px;
-    width: 100%;
-    display: flex;
-    gap: 15px;
-}
-
-.selection-bar button {
-    margin-top: 10px;
-}
-
-#att-situacoes {
-    margin-left: auto;
-    margin-right: 20px;
-}
-
 .loading-shade {
     position: absolute;
     top: 0;
@@ -27,7 +11,7 @@ mat-card {
     bottom: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.15);
-    z-index: 8;
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: center;

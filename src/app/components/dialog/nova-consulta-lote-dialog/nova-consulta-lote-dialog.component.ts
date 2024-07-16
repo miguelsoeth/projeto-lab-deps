@@ -62,7 +62,6 @@ export class NovaConsultaLoteDialogComponent {
   }
 
   enviarLote(): void {
-    this.isLoadingResults = true;
 
     if (this.invalidDocuments.length > 0) {
       console.log("documentos inválidos presentes")
@@ -84,6 +83,7 @@ export class NovaConsultaLoteDialogComponent {
     });
     
     console.log("Enviar pedido em lote");
+    this.isLoadingResults = true;
     const consulta: ConsultaLoteDto = {
       usuario: this.authService.getUserDetail()?.id,
       venda: this.data.sale.saleId,

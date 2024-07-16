@@ -4,7 +4,7 @@
             <button mat-button routerLink="/clientes" *ngIf="isAdmin()">
                 <span>Clientes</span>
             </button>
-            <button mat-button routerLink="/historico" *ngIf="isAdmin()">
+            <button mat-button routerLink="/consulta/historico" *ngIf="isAdmin()">
                 <span>Histórico de consulta</span>
             </button>
             <button mat-button *ngIf="isUser()" [matMenuTriggerFor]="menuConsulta">                
@@ -18,7 +18,7 @@
                 <button routerLink="/consulta/lote" mat-menu-item>
                     <span>Lote</span>
                 </button>      
-                <button routerLink="/historico" mat-menu-item *ngIf="!isAdmin()">
+                <button routerLink="/consulta/historico" mat-menu-item *ngIf="!isAdmin()">
                     <span>Histórico de consulta</span>
                 </button>
             </mat-menu>

@@ -11,6 +11,7 @@ import { EditComponent } from './pages/edit/edit.component';
 import { ConsultaOnlineComponent } from './pages/consulta-online/consulta-online.component';
 import { ConsultaLoteComponent } from './pages/consulta-lote/consulta-lote.component';
 import { UploadCsvComponent } from './components/upload-csv/upload-csv.component';
+import { VisualizarConsultaComponent } from './pages/visualizar-consulta/visualizar-consulta.component';
 
 export const routes: Routes = [
     {
@@ -39,7 +40,7 @@ export const routes: Routes = [
         }
     },
     {
-        path: 'historico',
+        path: 'consulta/historico',
         component: HistoryComponent,
         canActivate:[authGuard],
         data: {
@@ -65,6 +66,14 @@ export const routes: Routes = [
     {
         path: 'consulta/lote',
         component: ConsultaLoteComponent,
+        canActivate:[roleGuard],
+        data: {
+            roles:['User'],
+        }
+    },
+    {
+        path: 'consulta/visualizar/:id',
+        component: VisualizarConsultaComponent,
         canActivate:[roleGuard],
         data: {
             roles:['User'],

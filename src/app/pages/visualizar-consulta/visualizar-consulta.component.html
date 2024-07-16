@@ -1,0 +1,17 @@
+<mat-card>
+    @if (isLoadingResults) {
+        <div class="loading-shade">
+            <mat-spinner></mat-spinner>
+        </div>
+    }
+    <mat-card-header>
+        <mat-card-title>Visualizando consulta</mat-card-title>
+    </mat-card-header>
+    <mat-card-content *ngIf="!isLoadingResults">
+        <p><strong>CNPJ:</strong> {{ data.cnpj | mask: "000.000.000-00||00.000.000/0000-00"}}</p>
+        <p><strong>Razão Social:</strong> {{ data.razaoSocial }}</p>
+        <p><strong>UF:</strong> {{ data.uf }}</p>
+        <p><strong>Município:</strong> {{ data.municipio }}</p>
+    </mat-card-content>
+</mat-card>
+  
