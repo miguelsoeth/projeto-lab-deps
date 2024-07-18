@@ -87,7 +87,7 @@ export class CreditsDialogComponent implements OnInit {
       this.credit.increaseUserCredits(this.userDetail.id!, Math.abs(value)).subscribe();
     }
     this.changeCredits(this.credits);
-    this.snackbar.showMessage(`Cŕeditos de ${this.userDetail.name} atualizado para R$ ${this.credits.toFixed(2)}`);
+    this.snackbar.showMessage(`Créditos de ${this.userDetail.name} atualizado para R$ ${this.credits.toFixed(2)}`);
   }
 
   confirmCreditsChange(): void {

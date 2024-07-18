@@ -42,10 +42,7 @@ export const routes: Routes = [
     {
         path: 'consulta/historico',
         component: HistoryComponent,
-        canActivate:[authGuard],
-        data: {
-            roles:['Admin'],
-        }
+        canActivate:[authGuard]
     },
     {
         path: 'clientes/editar/:id',
@@ -74,9 +71,6 @@ export const routes: Routes = [
     {
         path: 'consulta/visualizar/:id',
         component: VisualizarConsultaComponent,
-        canActivate:[roleGuard],
-        data: {
-            roles:['User'],
-        }
+        canActivate:[authGuard]
     }
 ];

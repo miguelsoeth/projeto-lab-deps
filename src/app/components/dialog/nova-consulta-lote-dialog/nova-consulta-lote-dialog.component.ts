@@ -76,7 +76,7 @@ export class NovaConsultaLoteDialogComponent {
       next: (response) => {
         const credits = response.amount!;
         if (credits < this.cost!) {
-          this.snackbar.showMessage("Cŕeditos insuficientes");
+          this.snackbar.showMessage("Créditos insuficientes");
           return
         }               
       }
