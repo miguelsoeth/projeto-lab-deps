@@ -23,6 +23,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Pagina } from '../../interfaces/consulta/pagina';
 import { DadosItem } from '../../interfaces/consulta/consulta-resultado2';
 import { ConsultaResultado } from '../../interfaces/consulta/consulta-resultado';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-consulta-online',
@@ -82,6 +83,10 @@ export class ConsultaOnlineComponent {
         this.isLoadingResults = false;
         this.result = response;
         console.log("Result: ", this.result);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.snackbar.showMessage(err.error.message);
+        this.isLoadingResults = false;
       }
     });
   }

@@ -20,6 +20,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-consulta-lote',
@@ -45,6 +46,7 @@ export class ConsultaLoteComponent implements AfterViewInit {
   auth = inject(AuthService)
   dialog = inject(MatDialog)
   historico = inject(HistoricoService)
+  snackbar = inject(SnackbarService);
 
   saleService = inject(SaleService);
   sales$: Observable<SaleDetail[]> = this.saleService.getAllCurrentUserSales();
@@ -94,6 +96,11 @@ export class ConsultaLoteComponent implements AfterViewInit {
   }
 
   openNovaConsultaDialog(sale: SaleDetail) {
+    const selectedProfile = localStorage.getItem('selectedProfile');
+    if (!selectedProfile) {
+      this.snackbar.showMessage("Selecione o perfil antes de realizar uma pesquisa!");
+      return
+    }
     const dialogRef = this.dialog.open(NovaConsultaLoteDialogComponent, {
       data: { 
         userDetail: this.auth.getUserDetail(),

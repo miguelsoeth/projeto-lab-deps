@@ -4,6 +4,10 @@ mat-card {
     margin: 30px;
 }
 
+mat-hint {
+    text-wrap: nowrap;
+}
+
 .selection-bar {
     margin: 15px;
     width: 100%;
