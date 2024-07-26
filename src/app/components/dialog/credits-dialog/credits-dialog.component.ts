@@ -10,9 +10,9 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { MatInputModule } from '@angular/material/input';
 import {FormsModule} from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { CreditService } from '../../../services/credit.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { CreditService } from '../../../services/credit.service';
 
 @Component({
   selector: 'app-credits-dialog',
@@ -79,12 +79,12 @@ export class CreditsDialogComponent implements OnInit {
     if (value > 0) {
       //console.log("Remover: ", Math.abs(value));
       this.credits = this.credits - Math.abs(value);
-      this.credit.decreaseUserCredits(this.userDetail.id!, Math.abs(value)).subscribe();
+      this.credit.decreaseCreditApi(this.userDetail.id!, Math.abs(value)).subscribe();
     }
     else {
       //console.log("Adicionar: ", Math.abs(value));
       this.credits = this.credits + Math.abs(value);
-      this.credit.increaseUserCredits(this.userDetail.id!, Math.abs(value)).subscribe();
+      this.credit.increaseCreditApi(this.userDetail.id!, Math.abs(value)).subscribe();
     }
     this.changeCredits(this.credits);
     this.snackbar.showMessage(`Créditos de ${this.userDetail.name} atualizado para R$ ${this.credits.toFixed(2)}`);

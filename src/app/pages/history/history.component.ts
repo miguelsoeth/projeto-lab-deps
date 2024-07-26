@@ -39,7 +39,9 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './history.component.css'
 })
 export class HistoryComponent implements AfterViewInit {  
-  form!: FormGroup;
+  form!: FormGroup;  
+  cliente?:string
+  documento?: string
   authService = inject(AuthService)
 
   historico = inject(HistoricoService);  
@@ -50,17 +52,21 @@ export class HistoryComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit(): void {
-    this.fetchData(undefined, undefined);
+    this.fetchData();
   }
 
   filtrar(cliente?: string, documento?: string) {
     if (documento) {
       documento = documento.replace(/[^\d]/g, '');
     }
-    this.fetchData(cliente, documento);
+    this.paginator.pageIndex = 0; 
+    this.cliente = cliente;
+    this.documento = documento;   
+    this.fetchData();
+
   }
 
-  fetchData(cliente?:string, documento?: string) {
+  fetchData() {
     merge(this.paginator.page)
       .pipe(
         startWith({}),
@@ -69,8 +75,8 @@ export class HistoryComponent implements AfterViewInit {
           return this.historico.getHistoricoConsulta(
             this.paginator.pageIndex+1,
             this.paginator.pageSize,
-            cliente,
-            documento
+            this.cliente,
+            this.documento
           ).pipe(catchError(() => observableOf(null)));
         }),
         map(data => {

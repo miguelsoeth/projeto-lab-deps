@@ -16,3 +16,92 @@ mat-card {
     align-items: center;
     justify-content: center;
 }
+
+.company-details {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    padding: 20px;
+    border: 2px solid rgba(51, 51, 51, 0.5);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.nome-fantasia {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.header-row p {
+    flex: 1;
+    margin: 0 10px;
+}
+
+.header img {
+    width: 200px;
+    margin-right: 5%;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.content p {
+    width: 50%; /* Each paragraph takes up half the width of the container */
+    margin: 5px 0;
+}
+
+ul {
+    padding-left: 20px;
+    margin: 0;
+}
+
+ul li {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.socio-item {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid rgba(51, 51, 51, 0.5);
+    border-radius: 8px;
+}
+
+.socio-nome {
+    width: 100%;
+}
+
+.socio-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.socio-details p {
+    width: 50%;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.section-title {
+    font-weight: bold;
+    margin: 15px 0px;
+    font-size: 1.3rem;
+}

@@ -3,6 +3,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { CreditService } from '../../services/credit.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
   authService = inject(AuthService);
 
   ngOnInit(): void {
-    // this.authService.getDetail().subscribe();
+
   }
   
 }

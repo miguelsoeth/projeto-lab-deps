@@ -38,12 +38,71 @@
                 Consultar
             </button>     
         </form>
-        <div *ngIf="result && result.success == true">
-            <p>Conteudo</p>
-            <p>{{result.data.cnpj}}</p>
-            <p>{{result.data.razaoSocial}}</p>
-            <p>{{result.data.uf}}</p>
-            <p>{{result.data.municipio}}</p>
+        <div *ngIf="result && result.success == true" class="company-details">
+            <div class="header">
+                <div class="header-row">
+                    <p class="nome-fantasia">{{ result.data.razaoSocial }}</p>
+                    <img src="../../../assets/logo-deps.png" alt="LAB UNESC DEPS">
+                </div>
+                <div class="header-row">
+                    <p><strong>Nome fantasia:</strong> {{ result.data.nomeFantasia }}</p>
+                </div>
+                <div class="header-row">
+                    <p><strong>CNPJ:</strong> {{ result.data.cnpj | mask: "000.000.000-00||00.000.000/0000-00" }}</p>
+                    <p><strong>CNPJ Matriz:</strong> {{ result.data.cnpjMatriz }}</p>
+                </div>
+                <div class="header-row">
+                    <p><strong>Tipo Unidade:</strong> {{ result.data.tipoUnidade }}</p>
+                    <p><strong>Situação Cadastral:</strong> {{ result.data.situacaoCadastral }}</p>
+                </div>
+            </div>
+            <div class="content">
+                <p><strong>Data Situação Cadastral:</strong> {{ result.data.dataSituacaoCadastral }}</p>
+                <p><strong>Motivo Situação Cadastral:</strong> {{ result.data.motivoSituacaoCadastral }}</p>
+                <p><strong>Nome Cidade Exterior:</strong> {{ result.data.nomeCidadeExterior }}</p>
+                <p><strong>Nome País:</strong> {{ result.data.nomePais }}</p>
+                <p><strong>Natureza Jurídica:</strong> {{ result.data.naturezaJuridica }}</p>
+                <p><strong>Data Início Atividade:</strong> {{ result.data.dataInicioAtividade }}</p>
+                <p><strong>Data Início Atividade Matriz:</strong> {{ result.data.dataInicioAtividadeMatriz }}</p>
+                <p><strong>CNAE Principal:</strong> {{ result.data.cnaePrincipal }}</p>
+                <p><strong>Tipo Logradouro:</strong> {{ result.data.descricaoTipoLogradouro }}</p>
+                <p><strong>Logradouro:</strong> {{ result.data.logradouro }}</p>
+                <p><strong>Número:</strong> {{ result.data.numero }}</p>
+                <p><strong>Complemento:</strong> {{ result.data.complemento }}</p>
+                <p><strong>Bairro:</strong> {{ result.data.bairro }}</p>
+                <p><strong>CEP:</strong> {{ result.data.cep }}</p>
+                <p><strong>UF:</strong> {{ result.data.uf }}</p>
+                <p><strong>Município:</strong> {{ result.data.municipio }}</p>
+                <p><strong>Código IBGE Município:</strong> {{ result.data.municipioCodigoIbge }}</p>
+                <p><strong>Telefone 01:</strong> {{ result.data.telefone01 }}</p>
+                <p><strong>Telefone 02:</strong> {{ result.data.telefone02 }}</p>
+                <p><strong>Fax:</strong> {{ result.data.fax }}</p>
+                <p><strong>Correio Eletrônico:</strong> {{ result.data.correioEletronico }}</p>
+                <p><strong>Qualificação Responsável:</strong> {{ result.data.qualificacaoResponsavel }}</p>
+                <p><strong>Capital Social Empresa:</strong> {{ result.data.capitalSocialEmpresa }}</p>
+                <p><strong>Porte:</strong> {{ result.data.porte }}</p>
+                <p><strong>Opção pelo Simples:</strong> {{ result.data.opcaoPeloSimples }}</p>
+                <p><strong>Data Opção pelo Simples:</strong> {{ result.data.dataOpcaoPeloSimples }}</p>
+                <p><strong>Data Exclusão Opção pelo Simples:</strong> {{ result.data.dataExclusaoOpcaoPeloSimples }}</p>
+                <p><strong>Opção MEI:</strong> {{ result.data.opcaoMei }}</p>
+                <p><strong>Situação Especial:</strong> {{ result.data.situacaoEspecial }}</p>
+                <p><strong>Data Situação Especial:</strong> {{ result.data.dataSituacaoEspecial }}</p>
+                <p><strong>Nome Ente Federativo:</strong> {{ result.data.nomeEnteFederativo }}</p>
+            </div>
+            <div class="socios">
+                <p class="section-title">Sócios:</p>
+                <ul>
+                    <li *ngFor="let socio of result.data.socios">
+                        Nome: {{ socio.nome }}, Documento: {{ socio.documento }}, Qualificação: {{ socio.qualificacao }}
+                    </li>
+                </ul>
+            </div>
+            <div class="cnaes">
+                <p class="section-title">CNAEs Secundários:</p>
+                <ul>
+                    <li *ngFor="let cnae of result.data.cnaesSecundarios">{{ cnae }}</li>
+                </ul>
+            </div>
         </div>
         <div *ngIf="result && result.success == false">
             <p>Conteudo</p>

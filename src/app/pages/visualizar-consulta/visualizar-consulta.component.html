@@ -7,11 +7,75 @@
     <mat-card-header>
         <mat-card-title>Visualizando consulta</mat-card-title>
     </mat-card-header>
-    <mat-card-content *ngIf="!isLoadingResults">
-        <p><strong>CNPJ:</strong> {{ data.cnpj | mask: "000.000.000-00||00.000.000/0000-00"}}</p>
-        <p><strong>Razão Social:</strong> {{ data.razaoSocial }}</p>
-        <p><strong>UF:</strong> {{ data.uf }}</p>
-        <p><strong>Município:</strong> {{ data.municipio }}</p>
+    <mat-card-content *ngIf="!isLoadingResults" class="company-details">
+        <div class="header">
+            <div class="header-row">
+                <p class="nome-fantasia">{{ data.razaoSocial }}</p>
+                <img src="../../../assets/logo-deps.png" alt="LAB UNESC DEPS">
+            </div>
+            <div class="header-row">
+                <p><strong>Nome fantasia:</strong> {{ data.nomeFantasia }}</p>
+            </div>
+            <div class="header-row">
+                <p><strong>CNPJ:</strong> {{ data.cnpj | mask: "000.000.000-00||00.000.000/0000-00" }}</p>
+                <p><strong>CNPJ Matriz:</strong> {{ data.cnpjMatriz }}</p>
+            </div>
+            <div class="header-row">
+                <p><strong>Tipo Unidade:</strong> {{ data.tipoUnidade }}</p>
+                <p><strong>Situação Cadastral:</strong> {{ data.situacaoCadastral }}</p>
+            </div>
+        </div>
+        <div class="content">
+            <p><strong>Data Situação Cadastral:</strong> {{ data.dataSituacaoCadastral }}</p>
+            <p><strong>Motivo Situação Cadastral:</strong> {{ data.motivoSituacaoCadastral }}</p>
+            <p><strong>Nome Cidade Exterior:</strong> {{ data.nomeCidadeExterior }}</p>
+            <p><strong>Nome País:</strong> {{ data.nomePais }}</p>
+            <p><strong>Natureza Jurídica:</strong> {{ data.naturezaJuridica }}</p>
+            <p><strong>Data Início Atividade:</strong> {{ data.dataInicioAtividade }}</p>
+            <p><strong>Data Início Atividade Matriz:</strong> {{ data.dataInicioAtividadeMatriz }}</p>
+            <p><strong>CNAE Principal:</strong> {{ data.cnaePrincipal }}</p>
+            <p><strong>Tipo Logradouro:</strong> {{ data.descricaoTipoLogradouro }}</p>
+            <p><strong>Logradouro:</strong> {{ data.logradouro }}</p>
+            <p><strong>Número:</strong> {{ data.numero }}</p>
+            <p><strong>Complemento:</strong> {{ data.complemento }}</p>
+            <p><strong>Bairro:</strong> {{ data.bairro }}</p>
+            <p><strong>CEP:</strong> {{ data.cep }}</p>
+            <p><strong>UF:</strong> {{ data.uf }}</p>
+            <p><strong>Município:</strong> {{ data.municipio }}</p>
+            <p><strong>Código IBGE Município:</strong> {{ data.municipioCodigoIbge }}</p>
+            <p><strong>Telefone 01:</strong> {{ data.telefone01 }}</p>
+            <p><strong>Telefone 02:</strong> {{ data.telefone02 }}</p>
+            <p><strong>Fax:</strong> {{ data.fax }}</p>
+            <p><strong>Correio Eletrônico:</strong> {{ data.correioEletronico }}</p>
+            <p><strong>Qualificação Responsável:</strong> {{ data.qualificacaoResponsavel }}</p>
+            <p><strong>Capital Social Empresa:</strong> {{ data.capitalSocialEmpresa }}</p>
+            <p><strong>Porte:</strong> {{ data.porte }}</p>
+            <p><strong>Opção pelo Simples:</strong> {{ data.opcaoPeloSimples }}</p>
+            <p><strong>Data Opção pelo Simples:</strong> {{ data.dataOpcaoPeloSimples }}</p>
+            <p><strong>Data Exclusão Opção pelo Simples:</strong> {{ data.dataExclusaoOpcaoPeloSimples }}</p>
+            <p><strong>Opção MEI:</strong> {{ data.opcaoMei }}</p>
+            <p><strong>Situação Especial:</strong> {{ data.situacaoEspecial }}</p>
+            <p><strong>Data Situação Especial:</strong> {{ data.dataSituacaoEspecial }}</p>
+            <p><strong>Nome Ente Federativo:</strong> {{ data.nomeEnteFederativo }}</p>
+        </div>
+        <div class="socios">
+            <p class="section-title">Sócios:</p>
+            <div class="socio-item" *ngFor="let socio of data.socios">
+                <div class="socio-nome">
+                    <p><strong>Nome:</strong> {{ socio.nome }}</p>
+                </div>
+                <div class="socio-details">                    
+                    <p><strong>Qualificação:</strong> {{ socio.qualificacao }}</p>
+                    <p><strong>Documento:</strong> {{ socio.documento }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="cnaes">
+            <p class="section-title">CNAEs Secundários:</p>
+            <ul>
+                <li *ngFor="let cnae of data.cnaesSecundarios">{{ cnae }}</li>
+            </ul>
+        </div>
     </mat-card-content>
 </mat-card>
   

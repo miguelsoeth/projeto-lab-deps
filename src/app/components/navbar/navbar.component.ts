@@ -16,8 +16,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialog } from '@angular/material/dialog';
 import { UsersDialogComponent } from '../dialog/users-dialog/users-dialog.component';
-import { CreditService } from '../../services/credit.service';
 import { CreditDto } from '../../interfaces/credit/credit-detail';
+import { CreditService } from '../../services/credit.service';
 
 @Component({
   selector: 'app-navbar',
@@ -36,22 +36,26 @@ import { CreditDto } from '../../interfaces/credit/credit-detail';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent implements OnInit {  
+export class NavbarComponent implements OnInit {
+  credit = inject(CreditService);
+  creditAmount!: number;
+
   authService = inject(AuthService);
   router = inject(Router);
   snackbar = inject(SnackbarService);
   dialog = inject(MatDialog);
-  creditsService = inject(CreditService);
   profileService = inject(ProfileService);  
 
   userDetail$ = this.authService.getDetail();
-  credits$ = this.creditsService.getUserCredits(this.authService.getUserDetail()?.id);
   profiles$: Observable<ProfileDetail[]> = this.profileService.getUserProfiles(this.authService.getUserDetail()?.id);
 
   profileSelected = this.profileService.getProfileKey() ?? 'Selecione o perfil';
   profilesList: ProfileDetail[] = [];
 
   ngOnInit(): void {
+    this.credit.currentCredit.subscribe(credit => {
+      this.creditAmount = credit.amount!;
+    });
     this.profiles$.subscribe({
       next: (response) => {
         this.profilesList = response;

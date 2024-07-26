@@ -8,11 +8,11 @@ import { SnackbarService } from '../../../services/snackbar.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { CreditService } from '../../../services/credit.service';
 import { ConsultaLoteDto } from '../../../interfaces/consulta/consulta-lote.model';
 import { AuthService } from '../../../services/auth.service';
 import { ConsultaService } from '../../../services/consulta.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CreditService } from '../../../services/credit.service';
 
 @Component({
   selector: 'app-nova-consulta-dialog',
@@ -33,8 +33,8 @@ export class NovaConsultaLoteDialogComponent {
   isLoadingResults = false;
 
   snackbar = inject(SnackbarService);
-  authService = inject(AuthService)
-  credits = inject(CreditService);  
+  authService = inject(AuthService);
+  credit = inject(CreditService);
   consultaService = inject(ConsultaService);
 
   parsedDocs: string[] = [];
@@ -72,13 +72,13 @@ export class NovaConsultaLoteDialogComponent {
       this.snackbar.showMessage("Selecione o perfil antes de realizar uma pesquisa!");
       return
     }
-    this.credits.getCurrentUserCredits().subscribe({
+    this.credit.getCurrentUserCredits().subscribe({
       next: (response) => {
         const credits = response.amount!;
         if (credits < this.cost!) {
           this.snackbar.showMessage("Créditos insuficientes");
           return
-        }               
+        }
       }
     });
     
@@ -96,6 +96,9 @@ export class NovaConsultaLoteDialogComponent {
         this.snackbar.showMessage(response.message);
         this.isLoadingResults = false;
         this.dialogRef.close();
+        if (response.success) {
+          this.credit.decreaseCreditFront(this.cost!);
+        }
       }
     });
     

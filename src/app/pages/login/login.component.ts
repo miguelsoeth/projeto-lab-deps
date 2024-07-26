@@ -12,6 +12,7 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 //Services
 import { AuthService } from '../../services/auth.service';
 import { SnackbarService } from '../../services/snackbar.service';
+import { CreditService } from '../../services/credit.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ import { SnackbarService } from '../../services/snackbar.service';
 export class LoginComponent implements OnInit {
   //Injects
   router = inject(Router);
+  credit = inject(CreditService);
   fb = inject(FormBuilder);
   authService = inject(AuthService);
   snackBar = inject(SnackbarService);
@@ -45,6 +47,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form.value).subscribe({
       next: (response) => {
         this.snackBar.showMessage(response.message);
+        if (this.authService.isUser()) {
+          this.credit.fetch();
+        }        
         this.router.navigate(['/']);
         
       },

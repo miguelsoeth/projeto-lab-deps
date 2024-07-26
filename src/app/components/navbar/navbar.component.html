@@ -46,9 +46,9 @@
         </div>
         <div class="right" *ngIf="authService.getUserDetail() as userDetail">
             @if (isUser()) {
-                <div class="credits" *ngIf="credits$ | async as credit">
+                <div class="credits">
                     <span class="name">Créditos</span>
-                    <span class="role">{{ credit.amount | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>            
+                    <span class="role">{{ creditAmount | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>            
                 </div>
             }            
             <div>

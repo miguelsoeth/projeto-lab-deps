@@ -1,3 +1,4 @@
+import { CreditService } from '../../services/credit.service';
 import { AuthService } from './../../services/auth.service';
 import { Component, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
@@ -51,6 +52,7 @@ export class ConsultaOnlineComponent {
   result?: ConsultaResultado;
 
   authService = inject(AuthService);
+  credit = inject(CreditService);
   snackbar = inject(SnackbarService);
   saleService = inject(SaleService);
   consultaService = inject(ConsultaService);
@@ -82,7 +84,10 @@ export class ConsultaOnlineComponent {
       next: (response) => {
         this.isLoadingResults = false;
         this.result = response;
-        console.log("Result: ", this.result);
+        if (this.result.success) {
+          this.credit.decreaseCreditFront(this.saleControl.value?.valor!);
+        }
+        console.log("Result: ", response);
       },
       error: (err: HttpErrorResponse) => {
         this.snackbar.showMessage(err.error.message);

@@ -57,7 +57,7 @@ export class RegisterComponent implements OnInit {
       name: this.form.value.fullName,
       document: this.form.value.document,
       password: this.form.value.password,
-      roles: this.form.value.roles,
+      roles: [this.form.value.roles],
       isActive: true
     }
     console.log("Register func: ", mappedDetail);
@@ -70,6 +70,7 @@ export class RegisterComponent implements OnInit {
       error: (err: HttpErrorResponse) => {
         if(err!.status===400) {
           this.errors = err!.error;
+          console.log(this.errors);
           this.snackBar.showMessage('Erros de validação!');
         }
       },
