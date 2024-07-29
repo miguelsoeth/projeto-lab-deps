@@ -7,7 +7,7 @@
     <mat-card-header>
         <mat-card-title>Visualizando consulta</mat-card-title>
     </mat-card-header>
-    <mat-card-content *ngIf="!isLoadingResults" class="company-details">
+    <mat-card-content *ngIf="!isLoadingResults && isSuccess" class="company-details">
         <div class="header">
             <div class="header-row">
                 <p class="nome-fantasia">{{ data.razaoSocial }}</p>
@@ -76,6 +76,9 @@
                 <li *ngFor="let cnae of data.cnaesSecundarios">{{ cnae }}</li>
             </ul>
         </div>
+    </mat-card-content>
+    <mat-card-content *ngIf="!isSuccess" class="company-details">
+        Sem resultados
     </mat-card-content>
 </mat-card>
   

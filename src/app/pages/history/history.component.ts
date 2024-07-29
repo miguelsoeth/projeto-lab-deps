@@ -28,7 +28,7 @@ import { AuthService } from '../../services/auth.service';
     DatePipe,
     MatButtonModule,
     RouterLink,
-    NgxMaskDirective, 
+    NgxMaskDirective,
     NgxMaskPipe,
     MatFormFieldModule,
     MatInputModule,
@@ -38,13 +38,13 @@ import { AuthService } from '../../services/auth.service';
   providers: [provideNgxMask()],
   styleUrl: './history.component.css'
 })
-export class HistoryComponent implements AfterViewInit {  
-  form!: FormGroup;  
-  cliente?:string
+export class HistoryComponent implements AfterViewInit {
+  form!: FormGroup;
+  cliente?: string
   documento?: string
   authService = inject(AuthService)
 
-  historico = inject(HistoricoService);  
+  historico = inject(HistoricoService);
   displayedColumns: string[] = ['Date', 'Cnpj', 'RazaoSocial', 'opcoes'];
   data: HistoricoConsulta[] = [];
   isLoadingResults = true;
@@ -59,9 +59,9 @@ export class HistoryComponent implements AfterViewInit {
     if (documento) {
       documento = documento.replace(/[^\d]/g, '');
     }
-    this.paginator.pageIndex = 0; 
+    this.paginator.pageIndex = 0;
     this.cliente = cliente;
-    this.documento = documento;   
+    this.documento = documento;
     this.fetchData();
 
   }
@@ -73,7 +73,7 @@ export class HistoryComponent implements AfterViewInit {
         switchMap(() => {
           this.isLoadingResults = true;
           return this.historico.getHistoricoConsulta(
-            this.paginator.pageIndex+1,
+            this.paginator.pageIndex + 1,
             this.paginator.pageSize,
             this.cliente,
             this.documento
@@ -91,7 +91,6 @@ export class HistoryComponent implements AfterViewInit {
       )
       .subscribe(data => {
         this.data = data;
-        //console.log(data);
       });
   }
 

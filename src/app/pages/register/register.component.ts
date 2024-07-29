@@ -60,22 +60,17 @@ export class RegisterComponent implements OnInit {
       roles: [this.form.value.roles],
       isActive: true
     }
-    console.log("Register func: ", mappedDetail);
     this.authService.register(mappedDetail).subscribe({
       next: (response) => {
-        console.log(response);
         this.snackBar.showMessage(response.message);
         this.router.navigate(['/clientes']);
       },
       error: (err: HttpErrorResponse) => {
-        if(err!.status===400) {
+        if (err!.status === 400) {
           this.errors = err!.error;
           console.log(this.errors);
           this.snackBar.showMessage('Erros de validação!');
         }
-      },
-      complete: () => {
-        console.log('Sucesso ao registrar');
       }
     });
   }
@@ -83,7 +78,7 @@ export class RegisterComponent implements OnInit {
   private passwordsMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password')?.value;
     const confirmPassword = control.get('confirmPassword')?.value;
-    
+
     if (password !== confirmPassword) {
       return { passwordMismatch: true };
     }

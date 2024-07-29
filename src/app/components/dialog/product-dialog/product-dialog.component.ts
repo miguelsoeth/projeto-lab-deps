@@ -15,7 +15,6 @@ import { SaleService } from '../../../services/sale.service';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { CurrencyPipe } from '@angular/common';
-//REGISTER LOCALE
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 registerLocaleData(localePt);
@@ -70,7 +69,7 @@ export class ProductDialogComponent implements OnInit {
         this.snackbar.showMessage(result.message);
         this.loadSales();
       }
-    });    
+    });
   }
 
   loadSales(): void {
@@ -93,7 +92,6 @@ export class ProductDialogComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Event result:', event.checked, saleId);
         this.sale.disableSale(saleId, event.checked).subscribe({
           next: (response) => {
             this.snackbar.showMessage(response.message);
@@ -104,7 +102,7 @@ export class ProductDialogComponent implements OnInit {
         event.source.checked = !event.checked;
       }
     });
-    
+
   }
 
   deleteProduct(id: string) {
@@ -126,7 +124,7 @@ export class ProductDialogComponent implements OnInit {
         });
       }
     });
-    
+
   }
 
 }

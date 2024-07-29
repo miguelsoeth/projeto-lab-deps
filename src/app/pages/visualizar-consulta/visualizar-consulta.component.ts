@@ -20,7 +20,7 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     DatePipe,
     MatButtonModule,
     RouterLink,
-    NgxMaskDirective, 
+    NgxMaskDirective,
     NgxMaskPipe
   ],
   templateUrl: './visualizar-consulta.component.html',
@@ -31,22 +31,23 @@ export class VisualizarConsultaComponent implements OnInit {
   isLoadingResults = true;
   id!: string | null;
   data!: ResultData;
+  isSuccess?: boolean;
   route = inject(ActivatedRoute);
   historico = inject(HistoricoService)
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
-  
+
       if (this.id != null) {
         this.historico.getConsulta(this.id).subscribe(res => {
-          this.data = res;
-          console.log(this.data);
+          this.data = res.data;
+          this.isSuccess = res.success;
           this.isLoadingResults = false;
         });
       } else {
-        
-      }      
+
+      }
     });
   }
 }

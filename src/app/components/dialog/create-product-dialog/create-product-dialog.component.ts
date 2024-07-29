@@ -36,7 +36,7 @@ import { UserDetail } from '../../../interfaces/account/user-detail';
 })
 export class CreateProductDialogComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<CreateProductDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(public dialogRef: MatDialogRef<CreateProductDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   productService = inject(ProductService);
   saleService = inject(SaleService);
@@ -51,7 +51,7 @@ export class CreateProductDialogComponent implements OnInit {
     this.initializeForm();
   }
 
-  initializeForm(): void {    
+  initializeForm(): void {
     this.form = this.fb.group({
       produtos: this.produtoControl,
       valor: ['', [Validators.required]],
@@ -59,18 +59,16 @@ export class CreateProductDialogComponent implements OnInit {
   }
 
   enviar(): void {
-    if (!this.form.valid) {
-      console.log('Form is invalid');
-    }
-    
-    const obj:SaleDetail = {
+    if (!this.form.valid) return;
+
+    const obj: SaleDetail = {
       userId: this.userDetail.id,
       productId: this.form.value.produtos.id,
       valor: this.form.value.valor,
       productName: '',
       productDescription: ''
     }
-    console.log(obj);
+
     this.saleService.createSale(obj).subscribe({
       next: (response) => {
         return this.dialogRef.close(response);

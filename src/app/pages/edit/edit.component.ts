@@ -26,7 +26,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.css'
 })
-export class EditComponent implements OnInit {  
+export class EditComponent implements OnInit {
   router = inject(Router);
   fb = inject(FormBuilder);
   authService = inject(AuthService);
@@ -44,7 +44,7 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
-  
+
       if (this.id != null) {
         this.authService.getIdDetail(this.id).subscribe(user => {
           this.user = user;
@@ -52,7 +52,7 @@ export class EditComponent implements OnInit {
         });
       } else {
         this.initializeForm();
-      }      
+      }
     });
   }
 
@@ -62,7 +62,7 @@ export class EditComponent implements OnInit {
         email: [this.user?.email, [Validators.required, Validators.email]],
         fullName: [this.user?.name, [Validators.required]],
         document: [this.user?.document, [Validators.required]],
-        roles: [this.user?.roles?.at(0), [Validators.required]], 
+        roles: [this.user?.roles?.at(0), [Validators.required]],
         password: ['', [Validators.minLength(8)]],
         disabled: [this.user?.isActive, [Validators.required]]
       }
@@ -78,21 +78,16 @@ export class EditComponent implements OnInit {
       roles: [this.form.value.roles],
       isActive: this.form.value.disabled
     }
-    console.log(mappedDetail);
     this.authService.editUser(mappedDetail, this.id!).subscribe({
       next: (response) => {
         this.snackBar.showMessage(response.message);
         this.router.navigate(['/clientes']);
       },
       error: (err: HttpErrorResponse) => {
-        if(err!.status===400) {
-          console.log(err!.error);
+        if (err!.status === 400) {
           this.errors = err!.error;
           this.snackBar.showMessage('Erros de validação!');
         }
-      },
-      complete: () => {
-        console.log('Sucesso ao registrar');
       }
     });
   }

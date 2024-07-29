@@ -75,14 +75,11 @@ export class CreditsDialogComponent implements OnInit {
 
   saveCredits(): void {
     const value = this.credits - (this.showCredits);
-    //console.log(value);
     if (value > 0) {
-      //console.log("Remover: ", Math.abs(value));
       this.credits = this.credits - Math.abs(value);
       this.credit.decreaseCreditApi(this.userDetail.id!, Math.abs(value)).subscribe();
     }
     else {
-      //console.log("Adicionar: ", Math.abs(value));
       this.credits = this.credits + Math.abs(value);
       this.credit.increaseCreditApi(this.userDetail.id!, Math.abs(value)).subscribe();
     }

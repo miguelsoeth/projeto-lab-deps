@@ -91,7 +91,6 @@ export class ConsultaLoteComponent implements AfterViewInit {
       )
       .subscribe(data => {
         this.data = data;
-        console.log(this.data);
       });
   }
 
@@ -115,9 +114,3 @@ export class ConsultaLoteComponent implements AfterViewInit {
 
 }
 
-
-// this.historico.getHistoricoConsultaLote(1, 5).subscribe({
-//   next: (response) => {
-//     console.log("Response: ", response);
-//   }
-// });

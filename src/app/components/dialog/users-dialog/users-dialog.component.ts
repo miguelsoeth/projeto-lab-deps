@@ -32,7 +32,7 @@ export class UsersDialogComponent implements OnInit {
   snackbar = inject(SnackbarService);
   dialog = inject(MatDialog);
 
-  profileService = inject(ProfileService);  
+  profileService = inject(ProfileService);
   profilesDetail: ProfileDetail[] = [];
   isLoadingResults = true;
 
@@ -49,7 +49,6 @@ export class UsersDialogComponent implements OnInit {
   loadData(): void {
     this.isLoadingResults = true;
     this.profileService.getUserProfiles(this.userDetail.id!).subscribe({
-    // this.profileService.getAllProfiles().subscribe({
       next: (profiles) => {
         this.profilesDetail = profiles;
         this.isLoadingResults = false;
@@ -66,7 +65,7 @@ export class UsersDialogComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.profileService.deleteProfile(id).subscribe({
-          next: (response) => {        
+          next: (response) => {
             this.profilesDetail = this.profilesDetail.filter(p => p.id !== id);
             this.snackbar.showMessage("Usuário deletado com sucesso!");
           },
@@ -111,10 +110,9 @@ export class UsersDialogComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result: ProfileDetail) => {
       if (result) {
-        console.log(result);
         result.userId = this.userDetail.id;
         this.profileService.editProfile(result).subscribe({
-          next: (response) => {        
+          next: (response) => {
             const profile = this.profilesDetail.find(p => p.id === result.id);
             if (profile) {
               profile.profileName = result.profileName;

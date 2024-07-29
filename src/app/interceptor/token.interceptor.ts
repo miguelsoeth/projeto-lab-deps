@@ -10,26 +10,24 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (authService.getToken()) {
     const cloned = req.clone({
-      headers: req.headers.set('Authorization', 'Bearer ' + authService.getToken())      
+      headers: req.headers.set('Authorization', 'Bearer ' + authService.getToken())
     })
     console.log("Enviando...");
     return next(cloned).pipe(
-      catchError((err:HttpErrorResponse) => {
-        if(err.status===401) {
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === 401) {
           console.log("Revalidando token...");
           const tokenObj = {
             refreshToken: authService.getRefreshToken() || "",
             token: authService.getToken() || "",
-            email: authService.getUserDetail()?.email            
+            email: authService.getUserDetail()?.email
           }
-          console.log("tokenObj:", tokenObj);
           authService.refreshToken(tokenObj).subscribe({
-            next:(response) => {
-              console.log("response:", response);
-              if(response.isSuccess) {
+            next: (response) => {
+              if (response.isSuccess) {
                 localStorage.setItem("user", JSON.stringify(response));
-                const cloned=req.clone({
-                  setHeaders:{
+                const cloned = req.clone({
+                  setHeaders: {
                     Authorization: `Bearer ${response.token}`
                   }
                 });
@@ -37,7 +35,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
                 location.reload();
               }
             },
-            error:() => {
+            error: () => {
               console.log("Erro ao revalidar! deslogando...");
               authService.logout();
               router.navigate(['/login']);

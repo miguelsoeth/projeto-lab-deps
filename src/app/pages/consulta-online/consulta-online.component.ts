@@ -84,10 +84,14 @@ export class ConsultaOnlineComponent {
       next: (response) => {
         this.isLoadingResults = false;
         this.result = response;
+
+        if (Array.isArray(this.result?.errors)) {
+          this.snackbar.showMessage(this.result.errors[0]);
+        }
+
         if (this.result.success) {
           this.credit.decreaseCreditFront(this.saleControl.value?.valor!);
-        }
-        console.log("Result: ", response);
+        }        
       },
       error: (err: HttpErrorResponse) => {
         this.snackbar.showMessage(err.error.message);

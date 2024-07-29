@@ -18,11 +18,11 @@ import { CreditService } from '../../../services/credit.service';
   selector: 'app-nova-consulta-dialog',
   standalone: true,
   imports: [
-    MatDialogModule, 
-    MatButtonModule, 
-    UploadCsvComponent, 
-    MatTooltipModule, 
-    CommonModule, 
+    MatDialogModule,
+    MatButtonModule,
+    UploadCsvComponent,
+    MatTooltipModule,
+    CommonModule,
     MatIconModule,
     MatProgressSpinnerModule
   ],
@@ -41,9 +41,7 @@ export class NovaConsultaLoteDialogComponent {
   invalidDocuments: string[] = [];
   cost: number | null = null;
 
-  constructor(public dialogRef: MatDialogRef<NovaConsultaLoteDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
-    //console.log(this.data);
-  }
+  constructor(public dialogRef: MatDialogRef<NovaConsultaLoteDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   onParsedDocsReceived(parsedDocs: string[]): void {
     this.parsedDocs = parsedDocs;
@@ -54,17 +52,16 @@ export class NovaConsultaLoteDialogComponent {
         this.invalidDocuments.push(document);
       }
     });
-    this.cost = (this.data.sale.valor*this.parsedDocs.length);
+    this.cost = (this.data.sale.valor * this.parsedDocs.length);
     if (this.invalidDocuments.length > 0) {
       this.snackbar.showMessage(`Documentos inválidos encontrados!`);
     }
-    
+
   }
 
   enviarLote(): void {
 
     if (this.invalidDocuments.length > 0) {
-      console.log("documentos inválidos presentes")
       return
     }
     const selectedProfile = localStorage.getItem('selectedProfile');
@@ -81,8 +78,7 @@ export class NovaConsultaLoteDialogComponent {
         }
       }
     });
-    
-    console.log("Enviar pedido em lote");
+
     this.isLoadingResults = true;
     const consulta: ConsultaLoteDto = {
       usuario: this.authService.getUserDetail()?.id,
@@ -90,7 +86,6 @@ export class NovaConsultaLoteDialogComponent {
       documentos: this.parsedDocs,
       perfil: selectedProfile
     }
-    console.log(consulta);
     this.consultaService.postConsultaLote(consulta).subscribe({
       next: (response) => {
         this.snackbar.showMessage(response.message);
@@ -101,7 +96,7 @@ export class NovaConsultaLoteDialogComponent {
         }
       }
     });
-    
+
   }
 
 }

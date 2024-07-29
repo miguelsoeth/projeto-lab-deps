@@ -85,7 +85,6 @@ export class ClientsComponent implements AfterViewInit {
 
   onToggleChange(event: any): void {
     this.showDisabledUsers = event.checked;
-    console.log('Show disabled users:', this.showDisabledUsers);
     if (!this.showDisabledUsers) {
       this.allUsers = this.dataSource.data;
       this.dataSource.data = this.dataSource.data.filter(user => user.isActive == true);
