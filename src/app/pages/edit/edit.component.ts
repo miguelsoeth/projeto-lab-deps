@@ -62,7 +62,7 @@ export class EditComponent implements OnInit {
         email: [this.user?.email, [Validators.required, Validators.email]],
         fullName: [this.user?.name, [Validators.required]],
         document: [this.user?.document, [Validators.required]],
-        roles: [this.user?.roles, [Validators.required]], 
+        roles: [this.user?.roles?.at(0), [Validators.required]], 
         password: ['', [Validators.minLength(8)]],
         disabled: [this.user?.isActive, [Validators.required]]
       }
@@ -75,7 +75,7 @@ export class EditComponent implements OnInit {
       name: this.form.value.fullName,
       document: this.form.value.document,
       password: this.form.value.password,
-      roles: this.form.value.roles,
+      roles: [this.form.value.roles],
       isActive: this.form.value.disabled
     }
     console.log(mappedDetail);

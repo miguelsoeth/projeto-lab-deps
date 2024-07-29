@@ -13,6 +13,9 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { AuthService } from '../../services/auth.service';
 import { SnackbarService } from '../../services/snackbar.service';
 import { CreditService } from '../../services/credit.service';
+import { MatDialog } from '@angular/material/dialog';
+import { UsersDialogComponent } from '../../components/dialog/users-dialog/users-dialog.component';
+import { ProfileService } from '../../services/profile.service';
 
 
 @Component({
@@ -44,14 +47,13 @@ export class LoginComponent implements OnInit {
 
   submit() {
     this.isLoadingResults = true;
-    this.authService.login(this.form.value).subscribe({
+    this.authService.login(this.form.value).subscribe({      
       next: (response) => {
-        this.snackBar.showMessage(response.message);
+        this.snackBar.showMessage(response.message);        
         if (this.authService.isUser()) {
           this.credit.fetch();
-        }        
-        this.router.navigate(['/']);
-        
+        }  
+        this.router.navigate(['/'])
       },
       error: (error) => {
         this.snackBar.showMessage(error.error.message);
